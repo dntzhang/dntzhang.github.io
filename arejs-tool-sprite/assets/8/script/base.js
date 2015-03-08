@@ -17,7 +17,8 @@
 		var $canvasContainer  = $('.canvas-inner');
 		var $codeContainer    = $('.code-container');
 		var $tutorialLink     = $('.tutorial');
-		var spriteCanvas      = new spriteCow.SpriteCanvas();
+		var spriteCanvas = new spriteCow.SpriteCanvas();
+		spriteCow.spriteCanvasInstance = spriteCanvas;
 		var spriteCanvasView  = new spriteCow.SpriteCanvasView( spriteCanvas, $canvasContainer );
 		var imgInput          = new spriteCow.ImgInput( $canvasContainer, $canvasContainer, $tutorialLink.attr('href') );
 		var cssOutput         = new spriteCow.CssOutput( $codeContainer );
@@ -38,9 +39,9 @@
 
 		toolbarTop.$container.addClass('top');
 
-		toolbarBottom.
-			addItem('bg-size', 'Scale for retina displays', {noLabel: true}).
-			addItem('percent', 'Percentage positioning', {noLabel: true});
+		//toolbarBottom.
+		//	addItem('bg-size', 'Scale for retina displays', {noLabel: true}).
+		//	addItem('percent', 'Percentage positioning', {noLabel: true});
 
 		toolbarBottom.$container.addClass('bottom');
 
@@ -100,7 +101,10 @@
 		    spriteCanvasView.setTool('derived-vertex');
 		});
 
-		toolbarTop.bind('reload-img', function(event) {
+		toolbarTop.bind('reload-img', function (event) {
+		    spriteCanvasView._selectPolygon._path.length = 0;
+		    $(".css-output code").html("");
+		    spriteCow.spriteCanvasInstance.setImg(spriteCow.spriteCanvasInstance.currentImg);
 			imgInput.reloadLastFile();
 			event.preventDefault();
 		});

@@ -144,26 +144,51 @@
 				isDragging,
 				$document = $(document);
 			
-			
+			document.oncontextmenu = function () {
+			    return false;
+			};
 			selectArea._listeners.push([
-				selectArea._$eventArea, 'mousedown', function (event) {               
-					if (event.button !== 0) { return; }
-					var offset = selectArea._$area.offset();
-					startX = event.pageX;
-					startY = event.pageY;
-					// firefox like coming up with fraction values from offset()
-					startPositionX = Math.floor(event.pageX - offset.left);
-					startPositionY = Math.floor(event.pageY - offset.top);
-					
-					rect = new spriteCow.Rect(
-						startPositionX,
-						startPositionY,
-						1, 1
-					);
-					
-					selectArea._highlight.moveTo(rect);
-					isDragging = true;
-					event.preventDefault();
+				selectArea._$eventArea, 'mousedown', function (event) {
+				
+				    //if (event.button !== 0) { return; }
+				    if (event.button === 0) {
+				        var offset = selectArea._$area.offset();
+				        startX = event.pageX;
+				        startY = event.pageY;
+				        // firefox like coming up with fraction values from offset()
+				        startPositionX = Math.floor(event.pageX - offset.left);
+				        startPositionY = Math.floor(event.pageY - offset.top);
+
+				        rect = new spriteCow.Rect(
+                            startPositionX,
+                            startPositionY,
+                            1, 1
+                        );
+
+				        selectArea._highlight.moveTo(rect);
+				        isDragging = true;
+				     
+				    } else if (event.button == 2) {
+				        var dlCanvas = document.createElement("canvas");
+				        var dlCtx = dlCanvas.getContext("2d");
+				        dlCanvas.height = rect.height;
+				        dlCanvas.width = rect.width;
+				        dlCtx.drawImage(spriteCow.spriteCanvasInstance.currentImg, rect.x, rect.y, rect.width, rect.height, 0, 0, rect.width, rect.height);
+				        if (dlCanvas.toBlob) {
+				            dlCanvas.toBlob(
+                                function (blob) {
+                                    var url = window.URL.createObjectURL(blob);
+                                    var dlLink = document.createElement("a");
+                                    dlLink.setAttribute('href', url);
+                                    dlLink.setAttribute('download', new Date().getTime() + '.png');
+                                    dlLink.click();
+                                },
+                                'image/png'
+                            );
+				        }
+				    }
+
+				    event.preventDefault();
 				}
 			]);
 			
@@ -205,6 +230,88 @@
 		return SelectArea;
 	})();
 	
+	var CanvasHelper = {};
+
+	CanvasHelper.drawCircle = function (x, y, r, ctx) {
+	    ctx.save();
+	    ctx.fillStyle = "white";
+	    ctx.beginPath();
+	    ctx.arc(x, y, r, 0, 2 * Math.PI, true);
+	    ctx.fill();
+       
+	    ctx.strokeStyle = "#00AAFF";
+	    ctx.beginPath();
+	    ctx.arc(x, y, r, 0, 2 * Math.PI, true);
+	    ctx.stroke();
+	    ctx.restore();
+	}
+
+	CanvasHelper.drawLine = function (a,b,c,d, ctx) {
+	    ctx.save();
+	    ctx.strokeStyle = "#00AAFF";
+	    ctx.lineWidth = 3;
+	    ctx.beginPath();
+	    ctx.moveTo(a, b);
+	    ctx.lineTo(c, d);
+	    ctx.stroke();
+	    ctx.restore();
+	}
+
+	CanvasHelper.fillPolygon = function (path, ctx) {
+	    var len = path.length;
+
+	    ctx.save();
+	    ctx.fillStyle = "#00AAFF";
+	    ctx.globalAlpha = 0.3;
+	    ctx.beginPath();
+	    ctx.moveTo(path[0][0], path[0][1])
+	    for (var i = 1; i < len; i++) {
+	        ctx.lineTo(path[i][0], path[i][1]);
+	    }
+	    ctx.lineTo(path[0][0], path[0][1]);
+	    ctx.fill();
+	    ctx.restore();
+
+	    ctx.save();
+	 
+	    ctx.lineWidth = 3;
+	    ctx.strokeStyle = "#00AAFF";
+	
+	    ctx.stroke();
+	    ctx.restore();
+	}
+
+	CanvasHelper.renderPath = function (path, ctx,canvas) {
+	
+	    ctx.clearRect(0, 0, canvas.width, canvas.height);
+	   ctx.drawImage(spriteCow.spriteCanvasInstance.currentImg, 0,0);
+	    var len=path.length;
+	    if (len=== 0) return;
+
+	    if (len === 1) {
+	        CanvasHelper.drawCircle(path[0][0], path[0][1],5, ctx);
+	        return;
+	    }
+
+	    if (len=== 2) {
+	        CanvasHelper.drawLine(path[0][0], path[0][1], path[1][0], path[1][1], ctx)
+	        CanvasHelper.drawCircle(path[0][0], path[0][1], 5, ctx);
+	        CanvasHelper.drawCircle(path[1][0], path[1][1], 5, ctx);
+	        return;
+	    }
+
+	    if (len > 2) {
+	        CanvasHelper.fillPolygon(path,ctx);
+	  
+
+
+	        for (var i = 0; i < len; i++) {
+	            CanvasHelper.drawCircle(path[i][0], path[i][1], 5, ctx);
+	        }
+	        return;
+	    }
+	}
+
 	var SelectPolygon = (function () {
 	    function SelectPolygon($canvas) {
 	        this._$canvas = $canvas;
@@ -214,31 +321,26 @@
 	    var SelectPolygonProto = SelectPolygon.prototype ;
 	    SelectPolygonProto.activate = function () {
 	        var self = this;
+	        var ismousedown = false;
 	        this._$canvas.bind("mousedown.polygon", function (event) {
 	            var ctx = self._context;
+	            ismousedown = true;
 	            var offset = self._$canvas.offset();
 	            var x = Math.floor(event.pageX - offset.left);
 	            var y = Math.floor(event.pageY - offset.top);
-	            var lastIndex = self._path.length - 1;
-	            ctx.beginPath();
-	            if (lastIndex > -1) {
-	                ctx.moveTo(self._path[lastIndex][0], self._path[lastIndex][1]);
-	                ctx.lineTo(x, y);
-	                ctx.stroke();
-	            } else {
-	                ctx.moveTo(x,y);
-	                ctx.lineTo(x+1, y+1);
-	                ctx.stroke();
-	            }
+	            
 	            self._path.push([x, y]);
+	            CanvasHelper.renderPath(self._path, ctx, self._$canvas[0]);
 
 	            $(".css-output code").html(JSON.stringify(self._path));
 	        })
-	        
+
+
        
 	    }
 	    SelectPolygonProto.deactivate = function () {
 	        this._$canvas.unbind(".polygon");
+	     
 	        return this;
 	    }
 	    return SelectPolygon;
