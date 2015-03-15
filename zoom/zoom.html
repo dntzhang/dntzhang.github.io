@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        #preview {
+            width: auto;
+            height: auto;
+            min-height: 300px;
+            min-width: 300px;
+            background-color: #eee;
+            padding: 22px;
+            border: 3px dashed black;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        #demo {
+            text-align: center;
+        }
+
+            #demo img {
+                margin-left: 5px;
+            }
+    </style>
+</head>
+<body>
+    <a href="https://github.com/AlloyTeam/AlloyGameEngine" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+    <div style="text-align: center;">
+      scale:<span id="range1Txt"></span>  <input id="range1" type="range" name="range" min="0.5" max="10" step="0.5" value="2" />
+    </div>
+    <div id="preview">
+        <div>Drop image file here.</div>
+        <canvas style="display:none;" id="canvas"></canvas>
+            <canvas id="resultCanvas"></canvas>
+    </div>
+    <script>
+        eval(function (p, a, c, k, e, d) { e = function (c) { return (c < a ? "" : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!''.replace(/^/, String)) { while (c--) d[e(c)] = k[c] || e(c); k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1; }; while (c--) if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]); return p; }('I B$=["\\U\\N\\C\\1j\\N\\D\\F\\M\\R\\D","\\1N\\1m\\1w\\1i\\1y\\E\\J\\1f\\E\\N\\1B\\K\\C\\V\\C\\J\\D","\\W\\F\\G\\D\\G\\D\\1r\\W\\C","\\Z\\K\\G\\S","\\1p\\M\\J\\D\\3m\\1q\\F\\F\\E\\1r","\\N\\M\\1A\\C","\\Z\\K\\G\\S\\Z\\U\\M\\K\\L\\C\\F","\\2o\\C\\S\\2t\\M\\D\\Z\\K\\G\\S\\Z\\U\\M\\K\\L\\C\\F","\\1w\\G\\1A\\Z\\K\\G\\S\\Z\\U\\M\\K\\L\\C\\F","\\1w\\2v\\Z\\K\\G\\S\\Z\\U\\M\\K\\L\\C\\F","\\E\\D\\G\\S","\\1q\\F\\F\\E\\1r\\Z\\U\\1a\\1a\\C\\F","\\N\\W\\K\\M\\D","\\1x","\\M\\J\\L\\C\\1z\\1X\\1a","\\S\\E\\N\\C\\2y\\2z","\\1x","\\1x","\\K\\C\\J\\Q\\D\\17","\\R\\17\\E\\F\\1y\\G\\L\\C\\1q\\D","\\1x","\\2l","\\2w","\\E\\W\\W\\C\\J\\L","\\Q\\C\\D\\Z\\K\\G\\S","\\D\\G\\Z\\K\\G\\S","\\V\\G\\1A\\2D\\C\\D\\1q\\N\\2E\\M\\K\\C","\\D\\G\\1u\\E\\D\\E\\1p\\1o\\1i","\\S\\K\\G\\S","\\1a\\U\\J\\R\\D\\M\\G\\J","\\E\\V\\L","\\L\\E\\D\\E\\1p\\1o\\1i\\D\\G\\Z\\K\\G\\S","\\E\\S\\N","\\1a\\K\\G\\G\\F","\\S\\1r\\1s\\L","\\L\\G\\R\\U\\V\\C\\J\\D","\\Q\\C\\D\\1B\\K\\C\\V\\C\\J\\D\\Z\\1r\\1s\\L","\\W\\F\\C\\1f\\M\\C\\1F","\\R\\E\\J\\1f\\E\\N","\\F\\C\\N\\U\\K\\D\\1y\\E\\J\\1f\\E\\N","\\F\\E\\J\\Q\\C\\2d","\\F\\E\\J\\Q\\C\\2d\\1m\\1z\\D","\\F\\E\\J\\Q\\C\\1L\\1m\\1z\\D","\\Q\\C\\D\\1y\\G\\J\\D\\C\\1z\\D","\\1L\\L","\\1L\\L","\\K\\G\\R\\E\\D\\M\\G\\J","\\17\\F\\C\\1a","\\1f\\E\\K\\U\\C","\\M\\J\\J\\C\\F\\1N\\1m\\1w\\1i","\\R\\K\\C\\E\\F\\1o\\C\\R\\D","\\1F\\M\\L\\D\\17","\\17\\C\\M\\Q\\17\\D","\\G\\J\\K\\G\\E\\L","\\N\\F\\R","\\1Q\\1Q\\J\\E\\V\\C","\\E","\\S","\\L\\F\\E\\1F\\1s\\V\\E\\Q\\C","\\Q\\C\\D\\1s\\V\\E\\Q\\C\\1u\\E\\D\\E","\\L\\E\\D\\E","\\W\\E\\F\\N\\C\\1s\\J\\D","\\W\\U\\D\\1s\\V\\E\\Q\\C\\1u\\E\\D\\E","\\R","\\2j\\W\\J\\Q","\\M\\V\\E\\Q\\C\\2s\\W\\J\\Q","\\1p\\1o\\1i","\\R\\F\\C\\E\\D\\C\\1X\\S\\2f\\C\\R\\D\\1p\\1o\\1i","\\R\\F\\C\\E\\D\\C\\1B\\K\\C\\V\\C\\J\\D","\\E","\\N\\C\\D\\1q\\D\\D\\F\\M\\S\\U\\D\\C","\\17\\F\\C\\1a","\\L\\G\\1F\\J\\K\\G\\E\\L","\\R\\K\\M\\R\\2p","\\D\\1r\\W\\C","\\V\\E\\D\\R\\17","\\R\\G\\J\\N\\G\\K\\C","\\K\\G\\Q","\\1m\\17\\C\\1j\\L\\F\\G\\W\\W\\C\\L\\1j\\1a\\M\\K\\C\\1j\\M\\N\\1j\\J\\G\\D\\1j\\E\\J\\1j\\M\\V\\E\\Q\\C\\2l\\1j","\\D\\E\\F\\Q\\C\\D","\\F\\C\\N\\U\\K\\D","\\J\\E\\V\\C","\\2j","\\F\\C\\E\\L\\1q\\N\\1u\\E\\D\\E\\1p\\1o\\1i","\\E\\L\\L\\1B\\1f\\C\\J\\D\\1i\\M\\N\\D\\C\\J\\C\\F","\\L\\F\\E\\Q\\G\\1f\\C\\F","\\W\\F\\C\\1f\\C\\J\\D\\1u\\C\\1a\\E\\U\\K\\D","\\L\\F\\G\\W","\\1A\\G\\G\\V","\\M\\D\\17\\U","\\V\\L\\2f","\\L\\E\\D\\E\\1m\\F\\E\\J\\N\\1a\\C\\F","\\1a\\M\\K\\C\\N","\\V\\G\\U\\N\\C\\U\\W","\\R\\17\\E\\J\\Q\\C"];!O(d){B$[0];I e=d[B$[1]]&&d[B$[1]][B$[2]],f=d[B$[3]]&&O(){1Z{Y 2x(1d 1J)}2a(d){Y 1D}}(),n=f&&d[B$[4]]&&O(){1Z{Y 2b===1d 1J([1d 1Y(2b)])[B$[5]]}2a(d){Y 1D}}(),r=d[B$[6]]||d[B$[7]]||d[B$[8]]||d[B$[9]],i=(f||r)&&d[B$[10]]&&d[B$[11]]&&d[B$[4]]&&O(g){I h,j,k,l,m,o;T(g[B$[12]](B$[13])[H][B$[14]](B$[15])>=H)h=2C(g[B$[12]](B$[13])[P]);1h h=2A(g[B$[12]](B$[13])[P]);j=1d 2B(h[B$[18]]);k=1d 1Y(j);1n(l=H;l<h[B$[18]];l+=P)k[l]=h[B$[19]](l);m=g[B$[12]](B$[13])[H][B$[12]](B$[21])[P][B$[12]](B$[22])[H];T(f)Y 1d 1J([n?k:j],{2q:m});o=1d r;o[B$[23]](j);Y o[B$[24]](m)};T(d[B$[1]]&&!e[B$[25]])T(e[B$[26]])e[B$[25]]=O(g,h,j){T(j&&e[B$[27]]&&i)g(i(16[B$[27]](h,j)));1h g(16[B$[26]](B$[28],h))};1h T(e[B$[27]]&&i)e[B$[25]]=O(g,h,j){g(i(16[B$[27]](h,j)))};T(B$[29]===2n 1I&&1I[B$[30]])1I(O(){Y i});1h d[B$[31]]=i}(16);O a(d){I e=-P;d=1G[B$[32]](d);I f=d*d;I g=f*d;T(d<=P)Y(e+1e)*g-(e+1l)*f+P;1h T(d<=1e)Y e*g-2u*e*f+2r*e*d-X*e;1h Y H};O b(d){T(d<=H)Y H;1h T(d>=20)Y 20;1h Y d};O c(d,e,f,g,h,i){I j=1G[B$[33]](f);I k=1G[B$[33]](g);I l=f-j;I m=g-k;I n=[];I o,p;1n(o=H;o<X;o++)1n(p=H;p<X;p++){I w=j-P+p;I x=k-P+o;I y=X*(e*x+w);T(y<H)y=H;T(y+X>d[B$[18]])y=d[B$[18]]-X;n[X*o+p]=[d[y],d[y+P],d[y+1e],d[y+1l]]};I q=[],r=[];q[H]=a(P+l);q[P]=a(l);q[1e]=a(P-l);q[1l]=a(1e-l);r[H]=a(P+m);r[P]=a(m);r[1e]=a(P-m);r[1l]=a(1e-m);I s=H,t=H,u=H,v=H;1n(o=H;o<X;++o){I w=H,x=H,y=H,z=H;1n(I A=H;A<X;++A){z+=q[A]*n[X*o+A][1l];w+=q[A]*n[X*o+A][H];x+=q[A]*n[X*o+A][P];y+=q[A]*n[X*o+A][1e]};v+=z*r[o];s+=w*r[o];t+=x*r[o];u+=y*r[o]};h[i+1l]=v;h[i]=s;h[i+P]=t;h[i+1e]=u}!O(){I d={};d[B$[34]]=O(l){Y 1k[B$[35]][B$[36]](l)};1K=d[B$[34]](B$[37]),1c=d[B$[34]](B$[38]),1g=d[B$[34]](B$[39]),1v=d[B$[34]](B$[3d]),1H=d[B$[34]](B$[2N]),2Q=d[B$[34]](B$[2H]),1C=1c[B$[1V]](B$[1W]),1M=1g[B$[1V]](B$[1W]);I e=1k[B$[2Z]][B$[2k]];I f=1v[B$[1O]];1H[B$[1U]]=f;I g=O(l,m){1C[B$[2X]](H,H,1c[B$[3c]],1c[B$[3b]]);I n=1d 2S;n[B$[1P]]=h;n[B$[2R]]=l;n[B$[3p]]=m};O h(){1c[B$[1b]]=16[B$[1b]];1c[B$[1t]]=16[B$[1t]];1g[B$[1b]]=16[B$[1b]]*f;1g[B$[1t]]=16[B$[1t]]*f;1C[B$[2W]](16,H,H);I l=1C[B$[1S]](H,H,16[B$[1b]],16[B$[1t]])[B$[1T]];I m=1M[B$[1S]](H,H,1g[B$[1b]],1g[B$[1t]]);I n=m[B$[1T]];1n(I p=H,j=n[B$[18]];p<j;p+=X){I r=p/X%1g[B$[1b]];I t=1k[B$[2U]](p/ X/1g[B$[1b]]);I u=r/ f; I v = t/f;c(l,1c[B$[1b]],u,v,n,p)};1M[B$[2V]](m,H,H);I q=16[B$[2h]];T(1c[B$[25]])1c[B$[25]](O(r){i(r,q+B$[2T])},B$[3a]);2Y 16[B$[2h]]};O i(l,m){T(1k[B$[2c]][B$[2e]]){I n=1k[B$[2c]][B$[2e]](l);I o=1k[B$[35]][B$[2I]](B$[1b]);o[B$[2m]](B$[2k],n);o[B$[2m]](B$[2J],m);o[B$[2K]]()}};I j=O(l){T(!l[B$[1R]][B$[2F]](/2G.*/)){1k[B$[2O]][B$[2P]](B$[2L],l[B$[1R]]);Y};I m=1d 2M;m[B$[1P]]=O(n){g(n[B$[3q]][B$[3r]],l[B$[3o]][B$[12]](B$[3s])[H])};m[B$[3t]](l)};1K[B$[1E]](B$[3n],O(l){l[B$[2g]]()},2i);1K[B$[1E]](B$[3g],O(l){l[B$[2g]]();T(e[B$[14]](B$[3h])==-P||e[B$[14]](B$[3e])==-P||e[B$[14]](B$[3l])==-P)Y;j(l[B$[3k]][B$[3j]][H])},2i);1v[B$[1E]](B$[3i],k,1D);1v[B$[1E]](B$[3f],k,1D);O k(){f=1v[B$[1O]];1H[B$[1U]]=f}}();', 62, 216, '|||||||||||||||||||||||||||||||||||||_|x65|x74|x61|x72|x6f|0x0|var|x6e|x6c|x64|x69|x73|function|0x1|x67|x63|x62|if|x75|x6d|x70|0x4|return|x42|||||||this|x68|||x66|56|canvas|new|0x2|x76|resultCanvas|else|x4c|x20|window|0x3|x54|for|x52|x55|x41|x79|x49|57|x44|range1|x4d|x2c|x43|x78|x7a|x45|ctx|false|84|x77|Math|range1Txt|define|Blob|preview|x32|resultCtx|x48|48|53|x5f|74|59|60|49|43|44|x4f|Uint8Array|try|0xff||||||||||catch|0x64|66|x31|67|x6a|86|63|true|x2e|47|x3a|70|typeof|x57|x6b|type|0x8|x2f|x4b|0x5|x53|x3b|Boolean|x36|x34|decodeURIComponent|ArrayBuffer|atob|x47|x46|75|image|42|68|72|73|78|FileReader|41|76|77|range2Txt|54|Image|64|61|62|58|50|delete|46|||||||||||65|52|51|40|89|94|87|88|93|92|91|90|x38|85|81|55|79|80|82|83'.split('|'), 0, {}))
+
+    </script>
+</body>
+</html>
