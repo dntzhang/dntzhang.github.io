@@ -104,8 +104,8 @@
 			{
                     label: 'Github',
                     children: [	
-                         { label: 'AlloyGameEngine', url: 'https://github.com/AlloyTeam/AlloyGameEngine' },                      
-                           { label: 'kmdjs', url: 'https://github.com/kmdjs/kmdjs' }
+                         { label: 'AlloyGameEngine', url: 'https://github.com/AlloyTeam/AlloyGameEngine',currentWindow:true },                      
+                           { label: 'kmdjs', url: 'https://github.com/kmdjs/kmdjs' ,currentWindow:true}
                           
                     ]
                 },
@@ -140,8 +140,13 @@
             $tree.bind('tree.click', function (e) {
                 var ifm = document.getElementById("iframe1");
                 if (e.node.url) {
-                    ifm.src = e.node.url;
+				  if(e.node.currentWindow){
+				  window.location.href= e.node.url;
+				  }else{
+				   ifm.src = e.node.url;
 					ifm.focus();
+				  }
+                   
                 } else {
                     $tree.tree('toggle', e.node);
                 }
