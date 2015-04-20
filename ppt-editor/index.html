@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>PPT Editor</title>
+
 <link rel="shortcut icon" href="ppt.ico">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -195,7 +195,7 @@
             }
 
         .ppt-editor .dropdown-menu .divider {
-            margin: 1px 0px;
+            margin: 0px 0px;
         }
         .ppt-preview-content:hover {
          background-color:#e7f4fc;
@@ -215,6 +215,14 @@
         }
         #hidden_upload { display: none; }
 
+      .ppt-text-edit  .dropdown-menu{
+          height:180px;
+          overflow-y:scroll;
+          overflow-x:hidden;
+        }
+    </style>
+    
+         <style>
         .hljs{display:block;overflow-x:auto;padding:0.5em;background:#f0f0f0;-webkit-text-size-adjust:none;-moz-text-size-adjust:none; -ms-text-size-adjust:none; text-size-adjust:none;font-family: PT Sans, DejaVu Sans, Arial, sans;font-size:20px;}.hljs,.hljs-subst,.hljs-tag .hljs-title,.nginx .hljs-title{color:black}.hljs-string,.hljs-title,.hljs-constant,.hljs-parent,.hljs-tag .hljs-value,.hljs-rule .hljs-value,.hljs-preprocessor,.hljs-pragma,.hljs-name,.haml .hljs-symbol,.ruby .hljs-symbol,.ruby .hljs-symbol .hljs-string,.hljs-template_tag,.django .hljs-variable,.smalltalk .hljs-class,.hljs-addition,.hljs-flow,.hljs-stream,.bash .hljs-variable,.pf .hljs-variable,.apache .hljs-tag,.apache .hljs-cbracket,.tex .hljs-command,.tex .hljs-special,.erlang_repl .hljs-function_or_atom,.asciidoc .hljs-header,.markdown .hljs-header,.coffeescript .hljs-attribute{color:#800}.smartquote,.hljs-comment,.hljs-annotation,.diff .hljs-header,.hljs-chunk,.asciidoc .hljs-blockquote,.markdown .hljs-blockquote{color:#888}.hljs-number,.hljs-date,.hljs-regexp,.hljs-literal,.hljs-hexcolor,.smalltalk .hljs-symbol,.smalltalk .hljs-char,.go .hljs-constant,.hljs-change,.lasso .hljs-variable,.makefile .hljs-variable,.asciidoc .hljs-bullet,.markdown .hljs-bullet,.asciidoc .hljs-link_url,.markdown .hljs-link_url{color:#080}.hljs-label,.hljs-javadoc,.ruby .hljs-string,.hljs-decorator,.hljs-filter .hljs-argument,.hljs-localvars,.hljs-array,.hljs-attr_selector,.hljs-important,.hljs-pseudo,.hljs-pi,.haml .hljs-bullet,.hljs-doctype,.hljs-deletion,.hljs-envvar,.hljs-shebang,.apache .hljs-sqbracket,.nginx .hljs-built_in,.tex .hljs-formula,.erlang_repl .hljs-reserved,.hljs-prompt,.asciidoc .hljs-link_label,.markdown .hljs-link_label,.vhdl .hljs-attribute,.clojure .hljs-attribute,.asciidoc .hljs-attribute,.lasso .hljs-attribute,.coffeescript .hljs-property,.hljs-phony{color:#88f}.hljs-keyword,.hljs-id,.hljs-title,.hljs-built_in,.css .hljs-tag,.hljs-javadoctag,.hljs-phpdoc,.hljs-dartdoc,.hljs-yardoctag,.smalltalk .hljs-class,.hljs-winutils,.bash .hljs-variable,.pf .hljs-variable,.apache .hljs-tag,.hljs-type,.hljs-typename,.tex .hljs-command,.asciidoc .hljs-strong,.markdown .hljs-strong,.hljs-request,.hljs-status{font-weight:bold}.asciidoc .hljs-emphasis,.markdown .hljs-emphasis{font-style:italic}.nginx .hljs-built_in{font-weight:normal}.coffeescript .javascript,.javascript .xml,.lasso .markup,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:0.5}
     </style>
 </head>
@@ -280,15 +288,49 @@
                             40px <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="##">40px</a></li>
+                            <li><a href="##" style="font-size:8px;">8px</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">12px</li>
+                            <li><a href="##" style="font-size:9px;">9px</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">14px</a></li>
+                            <li><a href="##" style="font-size:10px;">10px</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">16px</a></li>
+                            <li><a href="##" style="font-size:12px;">12px</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">18px</a></li>
+                            <li><a href="##" style="font-size:14px;">14px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:16px;">16px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:18px;">18px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:20px;">20px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:24px;">24px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:28px;">28px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:32px;">32px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:36px;">36px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:40px;">40px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:44px;">44px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:48px;">48px</a></li>
+                             <li class="divider"></li>
+                            <li><a href="##" style="font-size:54px;">54px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:60px;">60px</a></li>
+                             <li class="divider"></li>
+                            <li><a href="##" style="font-size:66px;">66px</a></li>
+                            <li class="divider"></li>
+                            <li><a href="##" style="font-size:72px;">72px</a></li>
+                             <li class="divider"></li>
+                            <li><a href="##" style="font-size:80px;">80px</a></li>
+                             <li class="divider"></li>
+                            <li><a href="##" style="font-size:88px;">88px</a></li>
+                             <li class="divider"></li>
+                            <li><a href="##" style="font-size:96px;">96px</a></li>
                         </ul>
                     </div>
                     <div class="btn-group">
@@ -296,15 +338,106 @@
                             black <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="##">black</a></li>
+                            <li><a style="color:black;" href="##">black</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">green</li>
+                            <li><a style="color:green;" href="##">green</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">blue</a></li>
+                            <li><a style="color:blue;" href="##">blue</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">red</a></li>
+                            <li><a style="color:red;" href="##">red</a></li>
                             <li class="divider"></li>
-                            <li><a href="##">yellow</a></li>
+                            <li><a style="color:yellow;" href="##">yellow</a></li>
+                              <li class="divider"></li>
+                            <li><a style="color:#252525;" href="##">#252525</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#006AC1;" href="##">#006AC1</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#691BB8;" href="##">#691BB8</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#F4B300;" href="##">#F4B300</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#001E4E;" href="##">#001E4E</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#1FAEFF;" href="##">#1FAEFF</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#78BA00;" href="##">#78BA00</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#008287;" href="##">#008287</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#1B58B8;" href="##">#1B58B8</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#2673EC;" href="##">#2673EC</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#004D60;" href="##">#004D60</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#56C5FF;" href="##">#56C5FF</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#AE113D;" href="##">#AE113D</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#119900;" href="##">#119900</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#569CE3;" href="##">#569CE3</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#632F00;" href="##">#632F00</a></li>
+                            <li class="divider"></li>
+                            <li><a style="color:#004A00;" href="##">#004A00</a></li>
+                              <li class="divider"></li>
+                            <li><a style="color:#00D8CC;" href="##">#00D8CC</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#2E1700;" href="##">#2E1700</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#00C13F;" href="##">#00C13F</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#00AAAA;" href="##">#00AAAA</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#B01E00;" href="##">#B01E00</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#15992A;" href="##">#15992A</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#91D100;" href="##">#91D100</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#4E0000;" href="##">#4E0000</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#FF981D;" href="##">#FF981D</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#83BA1F;" href="##">#83BA1F</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#4E0038;" href="##">#4E0038</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#E56C19;" href="##">#E56C19</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#E1B700;" href="##">#E1B700</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#C1004F;" href="##">#C1004F</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#FF2E12;" href="##">#FF2E12</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#D39DD9;" href="##">#D39DD9</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#7200AC;" href="##">#7200AC</a></li>
+
+                             <li class="divider"></li>
+                            <li><a style="color:#B81B1B;" href="##">#B81B1B</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#FF768C;" href="##">#FF768C</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#2D004E;" href="##">#2D004E</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#FF1D77;" href="##">#FF1D77</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#E064B7;" href="##">#E064B7</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#4617B4;" href="##">#4617B4</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#B81B6C;" href="##">#B81B6C</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#1F0068;" href="##">#1F0068</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#AA40FF;" href="##">#AA40FF</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#FF7D23;" href="##">#FF7D23</a></li>
+                             <li class="divider"></li>
+                            <li><a style="color:#696969;" href="##">#696969</a></li>
                         </ul>
                     </div>
 
@@ -359,9 +492,9 @@
     </div>
     <div class="alert alert-info ppt-tip-for-user" style="position:fixed;z-index:3000;bottom:0px;right:0px;margin-bottom:0px;font-size:10px;" role="alert">请直接【双击页面】添加文字<br/>请直接【ctrl+单击】添加代码<br/>从电脑【拖拽图片】到这页面<br/>元素可【自由拖拽】任意位置</div>
     <div  style="position:fixed;top:0;right:0;display:none;z-index:10000;" id="ppt-export-div"><pre  id="ppt-export-textarea" style="width:400px;height:400px;overflow:scroll;" contenteditable="true"></pre><div style="text-align:center;"><button type="button" class="btn btn-sm btn-primary" id="ppt-close-export">关闭</button></div>   </div>
-     <textarea id="ppt-codearea" style="display:none;width:800px; height:600px"></textarea>
-    <script src="editor20150417.all.js"></script>
-
+     <textarea id="ppt-codearea" style="display:none; width:800px; height:600px"></textarea>
+    <script src="editor20150420.all.js"></script>
+  
 
 </body>
 </html>
