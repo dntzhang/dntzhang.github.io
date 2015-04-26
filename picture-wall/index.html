@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>照片墙</title>
+    <style>
+          body {
+            background: url(topbg.png) repeat;			
+            font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="tipDiv" style="position:absolute;right:0px;bottom:0px;padding:2px; border:2px solid #ccc;color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;">          
+        <div>鼠标放在【矩形区域】滚动滚轮放大缩小</div>
+             <div>鼠标放在【中心圆圈】内滚动滚轮可旋转</div>
+               <div>鼠标直接【点击】中心圆圈取消编辑状态</div>      
+         <div>非背景图片可直接从电脑【拖拽】至上方</div></div>
+    <div style="text-align:center;"><span style="font-size:20px;">照片墙</span> </div>
+  <div style="text-align:center;margin-top:3px;">  <canvas id="pwCanvas" width="768" height="512" style="border:2px solid #ccc;"></canvas></div>
+         <div style="text-align:center;">
+        <div>
+            <input type="button"  value="上传背景" onclick="document.getElementById('uploadBg').click()" /><input  id="uploadBg" type="file" style="display:none;"  value="上传背景" /><input type="button" value="上传图片" onclick="    document.getElementById('uploadImg').click();" /><input  style="display:none;"  id="uploadImg" type="file" value="上传图片" /><button id="exportBtn">下载图片</button>
+        </div>
+      <div > <span>powered by <a target="_blank" href="https://github.com/AlloyTeam/AlloyGameEngine">AlloyGameEngine</a></span></div>
+       
+
+    </div>
+    <script src="are.js"></script>
+    <script src="pw_uploader.js"></script>
+    <script src="CanvasToBlob.js"></script>
+    <script>
+        ; (function () {
+            var Stage = ARE.Stage, Bitmap = ARE.Bitmap;
+
+            var canvas = document.getElementById("pwCanvas");
+            var exportBtn = document.getElementById("exportBtn");
+            var stage = new Stage("#pwCanvas", true);
+            stage.moveFPS = 35;
+            pw.action = "scale";
+            stage.onMouseWheel(function (evt) {
+                if (pw.activeObject) {
+                    if (evt.delta > 0) {
+                        if (pw.action === "scale") {
+                            pw.activeObject.scale += 0.1;
+                        } else {
+                            pw.activeObject.rotation -= 5;
+                        }
+                    } else {
+                        if (pw.action === "scale") {
+                            pw.activeObject.scale -= 0.1;
+                        } else {
+                            pw.activeObject.rotation += 5;
+                        }
+                    }
+          
+                   
+                }
+            })
+            stage.fps = 25;
+            stage.onTick(function () {
+
+                if (pw.activeObject && pw.activeObject.rectPoints) {
+                    pw.graphics.clear();
+                    var points = pw.activeObject.rectPoints;
+
+                    pw.graphics.lineWidth(4).strokeStyle("#1B58B8").beginPath();
+                    pw.graphics.moveTo(points[0].x, points[0].y);
+                    pw.graphics.lineTo(points[1].x, points[1].y);
+                    pw.graphics.lineTo(points[2].x, points[2].y);
+                    pw.graphics.lineTo(points[3].x, points[3].y);
+                    pw.graphics.closePath();
+                    pw.graphics.stroke();
+                    pw.rotateShape.x = pw.activeObject.x;
+                    pw.rotateShape.y = pw.activeObject.y;
+                    pw.closeShape.x = points[1].x;
+                    pw.closeShape.y = points[1].y;
+                }
+            })
+            pw.bmpCTT = new ARE.Container();
+            pw.bgCTT = new ARE.Container();
+            pw.graphics = new ARE.Graphics();
+            pw.rotateShape = new ARE.Shape(24, 24);
+            pw.rotateShape.originX = pw.rotateShape.originY = 0.5;
+
+            pw.rotateShape.fillStyle("rgba(0,255,0,0.1)").arc(12, 12, 10, 0, 2 * Math.PI, true).fill().strokeStyle("#1B58B8").lineWidth(3).stroke().end();
+            pw.rotateShape.visible = false;
+            pw.rotateShape.onHover(function () {
+                pw.action = "rotate";
+            }, function () {
+                pw.action = "scale";
+
+            })
+            pw.rotateShape.onClick(function () {
+                pw.activeObject = null;
+                pw.graphics.visible = false;
+                pw.rotateShape.visible = false;
+                pw.closeShape.visible = false;
+            })
+
+            pw.closeShape = new ARE.Shape(24, 24);
+            pw.closeShape.originX = pw.closeShape.originY = 0.5;
+            pw.closeShape.visible = false;
+            pw.closeShape.fillStyle("rgba(255,255,255,1)").arc(12, 12, 10, 0, 2 * Math.PI, true).fill().strokeStyle("#1B58B8").lineWidth(2).stroke().moveTo(5,5).lineTo(20, 20).stroke().moveTo(5, 20).lineTo(20, 5).stroke().end();
+            pw.closeShape.x = 100;
+            pw.closeShape.y = 100;
+            pw.stageX = 480;
+            pw.stageY = 320;
+            stage.onMouseMove(function (evt) {
+                pw.stageX = evt.stageX;
+                pw.stageY = evt.stageY;
+            })
+            pw.closeShape.onClick(function () {
+                pw.activeObject.parent.remove(pw.activeObject);
+                pw.activeObject = null;
+                pw.graphics.visible = false;
+                pw.closeShape.visible = false;
+                pw.rotateShape.visible = false;
+
+            })
+            stage.add(pw.bgCTT, pw.bmpCTT, pw.graphics, pw.rotateShape, pw.closeShape);
+            new pw.Uploader({
+                dragTo: "pwCanvas",
+                complete: function (img) {
+                    initBitmap(img);
+                }
+            });
+
+
+            document.getElementById("uploadImg").addEventListener('change', readFile, false);
+            document.getElementById("uploadBg").addEventListener('change', readBgFile, false);
+       
+            function readBgFile() {
+                var file = this.files[0];
+                if (!/image\/\w+/.test(file.type)) {
+                    alert("请确保文件为图像类型");
+                    return false;
+                }
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+
+                    var img = new Image();
+                    img.onload = function () {
+                        // easel.drawImage(this, this.width / 2, this.height / 2);
+                        pw.stageX = stage.width / 2
+                        pw.stageY = stage.height / 2
+                        initBitmap(this, pw.bgCTT);
+                        document.getElementById("uploadBg").value = "";
+                    }
+                    img.src = this.result;
+
+
+                }
+
+
+            }
+            function readFile() {
+                var file = this.files[0];
+                if (!/image\/\w+/.test(file.type)) {
+                    alert("请确保文件为图像类型");
+                    return false;
+                }
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+
+                    var img = new Image();
+                    img.onload = function () {
+                        // easel.drawImage(this, this.width / 2, this.height / 2);
+                        pw.stageX =stage.width/2
+                        pw.stageY = stage.height / 2
+                        initBitmap(this);
+                        //解决连续传两张同样的图片不触发change事件
+                        document.getElementById("uploadImg").value = "";
+                    }
+                    img.src = this.result;
+
+
+                }
+
+
+            }
+            function initBitmap(img,bgCtt) {
+                var bitmap = new Bitmap(img);
+                pw.graphics.visible = true;
+                pw.rotateShape.visible = true;
+                pw.closeShape.visible = true;
+                bitmap.x = pw.stageX;
+                bitmap.y = pw.stageY;
+                bitmap.scaleX = bitmap.scaleY = 0.2;
+                bitmap.originX = bitmap.originY = 0.5;
+
+                ARE.To.get(bitmap)
+                .to()
+                .scaleX(1, 1000, ARE.To.elasticInOut)
+                .scaleY(1, 1000, ARE.To.elasticInOut)
+                 .end(function () {
+
+                 })
+                .start();
+                bitmap.onClick(function () {
+                    pw.graphics.visible = true;
+                    pw.rotateShape.visible = true;
+                    pw.closeShape.visible = true;
+                    pw.activeObject = this;
+                    pw.activeObject.parent.swapToTop(pw.activeObject);
+                })
+
+                bitmap.onPressMove(function (evt) {
+                    pw.activeObject = this;
+                    this.parent.swapToTop(this);
+                    if (this.preStageX) {
+                        this.x += evt.stageX - this.preStageX;
+                        this.y += evt.stageY - this.preStageY;
+                    }
+                    this.preStageX = evt.stageX;
+                    this.preStageY = evt.stageY;
+                })
+
+                bitmap.onPressUp(function () {
+                    this.preStageX = null;
+                    this.preStageY = null;
+                })
+                if (bgCtt) {
+                    bgCtt.add(bitmap);
+                } else {
+                    pw.bmpCTT.add(bitmap);
+                }
+                pw.activeObject = bitmap;
+
+            }
+            function downloadBlob(blob, fileName) {
+                if (window.URL.createObjectURL) {
+                    var dnlnk = window.URL.createObjectURL(blob);
+                    var dlLink = document.createElement("a");
+                    dlLink.setAttribute("href", dnlnk);
+                    dlLink.setAttribute("download", fileName);
+                    document.body.appendChild(dlLink);
+                    dlLink.click();
+                    setTimeout(function () {
+                        document.body.removeChild(dlLink);
+                    }, 10)
+                }
+            }
+
+            exportBtn.onclick = function () {
+                pw.activeObject = null;
+                pw.graphics.visible = false;
+                pw.closeShape.visible = false;
+                pw.rotateShape.visible = false;
+
+                setTimeout(function () {              
+                    if (canvas.toBlob) {
+                        canvas.toBlob(
+                            function (blob) {
+                                // Do something with the blob object,
+                                // e.g. creating a multipart form for file uploads:
+
+                                downloadBlob(blob, "result.png")
+                                /* ... */
+                            },
+                            'image/png'
+                        );
+                    } else {
+                        var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                        window.location.href = image; // it will save locally 
+
+                      
+                        var w = window.open('about:blank', 'image from canvas');
+                        w.document.write("<img src='" + image + "' alt='from canvas'/>");
+                    }
+                }, 300)
+        
+            }
+
+
+            setTimeout(function () {
+                document.getElementById("tipDiv").style.display = "none";
+            }, 60000)
+       
+        })();
+
+
+        //删除按钮
+    </script>
+</body>
+</html>
