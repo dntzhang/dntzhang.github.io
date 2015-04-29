@@ -12,30 +12,8 @@
     <script src="js/JSXTransformer.js"></script>
 
      <script src="js/react_jsready.js"></script>
-    <script type="text/jsx"  >
-        var Timer = React.createClass({
-    getInitialState: function() {
-        return {secondsElapsed: 0};
-    },
-    tick: function() {
-        this.setState({secondsElapsed: this.state.secondsElapsed + 1});
-    },
-    componentDidMount: function() {
-        this.interval = setInterval(this.tick, 1000);
-    },
-    componentWillUnmount: function() {
-        clearInterval(this.interval);
-    },
-    render: function() {
-        return (
-          <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
-    );
-}
-});
-
-React.render(<Timer />, document.getElementById('timerExample'));
-    </script>
      <script type="text/jsx"  src="js/react_test.js"></script>
+     <script type="text/jsx"  src="js/react_test2.js"></script>
     <script>
      // console.log(Timer)
         React.jsReady(function () {
