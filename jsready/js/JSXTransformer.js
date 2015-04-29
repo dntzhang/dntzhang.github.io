@@ -184,12 +184,12 @@ function run(code, url, options, callbacks,count) {
   headEl.appendChild(scriptEl);
 
   if (_loadedScriptCount === count) {
-	  if(callbacks){
-      var i = 0, len = callbacks.length;
-      for (; i < len; i++) {
-          callbacks[i]();
+      if (callbacks) {
+          var i = 0, len = callbacks.length;
+          for (; i < len; i++) {
+              callbacks[i]();
+          }
       }
-	  }
   }
 }
 
@@ -320,6 +320,16 @@ function runScripts(callbacks) {
   }
 
   if (jsxScripts.length < 1) {
+      if (callbacks) {
+          setTimeout(function () {
+              var i = 0, len = callbacks.length;
+              for (; i < len; i++) {
+                  callbacks[i]();
+              }
+          }, 0)
+         
+      }
+      
     return;
   }
 
