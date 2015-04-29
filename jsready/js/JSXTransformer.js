@@ -184,10 +184,12 @@ function run(code, url, options, callbacks,count) {
   headEl.appendChild(scriptEl);
 
   if (_loadedScriptCount === count) {
+	  if(callbacks){
       var i = 0, len = callbacks.length;
       for (; i < len; i++) {
           callbacks[i]();
       }
+	  }
   }
 }
 
