@@ -28,7 +28,7 @@ importScripts('serviceworker-cache-polyfill.js');
 // cache, then increment the CACHE_VERSION value. It will kick off the service worker update
 // flow and the old cache(s) will be purged as part of the activate event handler when the
 // updated service worker is activated.
-var CACHE_VERSION = 2;
+var CACHE_VERSION = 3;
 var CURRENT_CACHES = {
   prefetch: 'prefetch-cache-v' + CACHE_VERSION
 };
@@ -38,7 +38,7 @@ self.addEventListener('install', function(event) {
     './static/pre_fetched.txt',
     './static/pre_fetched.html',
     // This is an image that will be used in pre_fetched.html
-    'https://www.chromium.org/_/rsrc/1302286216006/config/customLogo.gif'
+    'http://alloyteam.github.io/style/image/alloy.png'
   ];
 
   // All of these logging statements should be visible via the "Inspect" interface
