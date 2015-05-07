@@ -38,7 +38,7 @@ self.addEventListener('install', function(event) {
     './static/pre_fetched.txt',
     './static/pre_fetched.html',
     // This is an image that will be used in pre_fetched.html
-    'http://alloyteam.github.io/style/image/alloy.png'
+    'https://assets-cdn.github.com/images/modules/dashboard/bootcamp/octocat_repo.png'
   ];
 
   // All of these logging statements should be visible via the "Inspect" interface
