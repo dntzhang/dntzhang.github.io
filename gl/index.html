@@ -1,167 +1,107 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title></title>
+    <meta charset="utf-8">
+    <title></title>
 
-<!-- vertex shader -->
-<script id="2d-vertex-shader" type="x-shader/x-vertex">
-attribute vec2 a_position;
-attribute vec2 a_texCoord;
+    <!-- vertex shader -->
+    <script id="2d-vertex-shader" type="x-shader/x-vertex">
+        attribute vec2 a_position;
+        attribute vec2 a_texCoord;
 
-uniform vec2 u_resolution;
+        varying vec2 v_texCoord;
+        void main() {
 
-varying vec2 v_texCoord;
+           gl_Position = pMatrix* vec4(a_position, 0, 1);
 
-void main() {
-   // convert the rectangle from pixels to 0.0 to 1.0
-   vec2 zeroToOne = a_position / u_resolution;
+           // pass the texCoord to the fragment shader
+           // The GPU will interpolate this value between points.
+           v_texCoord = a_texCoord;
+        }
+    </script>
+    <!-- fragment shader -->
+    <script id="2d-fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
 
-   // convert from 0->1 to 0->2
-   vec2 zeroToTwo = zeroToOne * 2.0;
+        // our texture
+        uniform sampler2D u_image;
 
-   // convert from 0->2 to -1->+1 (clipspace)
-   vec2 clipSpace = zeroToTwo - 1.0;
-
-   gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
-
-   // pass the texCoord to the fragment shader
-   // The GPU will interpolate this value between points.
-   v_texCoord = a_texCoord;
-}
-</script>
-<!-- fragment shader -->
-<script id="2d-fragment-shader" type="x-shader/x-fragment">
-precision mediump float;
-
-// our texture
-uniform sampler2D u_image;
-
-// the texCoords passed in from the vertex shader.
-varying vec2 v_texCoord;
-
-//注入glsl
-uniform float radius;
-uniform float angle;
-
-void main() {
-     vec2 center = vec2(0.5, 0.5);
-     vec2 tex = v_texCoord;
-     float dist = distance(center, v_texCoord);
-    tex -= center;
-    if (dist < radius)
-    {
-         float percent = (radius - dist) / radius;
-         float theta = percent * percent * angle * 8.0;
-         float s = sin(theta);
-         float c = cos(theta);
-        tex = vec2(dot(tex, vec2(c, -s)), dot(tex, vec2(s, c)));
-    }
-    tex += center;
-   gl_FragColor = texture2D(u_image, tex);
-}
-</script>
+        // the texCoords passed in from the vertex shader.
+        varying vec2 v_texCoord;
+        //注入glsl
+        uniform float angle;
+        const float radius = 0.5;
+        void main() {
+            vec2 center = vec2(0.5, 0.5);
+            vec2 tex = v_texCoord;
+            float dist = distance(center, v_texCoord);
+            tex -= center;
+            if (dist < radius)
+            {
+                 float percent = (radius - dist) / radius;
+                 float theta = percent * percent * angle * 8.0;
+                 float s = sin(theta);
+                 float c = cos(theta);
+                 tex = vec2(dot(tex, vec2(c, -s)), dot(tex, vec2(s, c)));
+            }
+            tex += center;
+           gl_FragColor = texture2D(u_image, tex);
+        }
+    </script>
 </head>
 <body>
-<canvas id="canvas" width="1400" height="1300"></canvas>
-    <script src="resources/webgl-utils.js"></script>
-<script>
-    "use strict";
+    <canvas id="canvas" width="960" height="800"></canvas>
+    <script src="resources/egl.js"></script>
+    <script>
+        ; (function () {
+            var angle = 0,img;
+            var gl = egl("#canvas", "2d-vertex-shader", "2d-fragment-shader");
 
-    // Get A WebGL context
-    var canvas = document.getElementById("canvas");
-    var gl = getWebGLContext(canvas);
-   
-    var image = new Image();
-    image.src = "resources/test.jpg";  // MUST BE SAME DOMAIN!!!
-    image.onload = function () {
-        render(image);
-    }
+            gl.loadImage("resources/test.jpg", function (image) {
+                    render(image)
+            })
 
-    var step = Math.PI / 180,begin=0;
-    function render(image) {
-   
-        // setup GLSL program
-        var program = createProgramFromScripts(gl, ["2d-vertex-shader", "2d-fragment-shader"]);
-        gl.useProgram(program);
+            function render(image) {
+               
+                gl.clear();
 
-        // look up where the vertex data needs to go.
-        var positionLocation = gl.getAttribLocation(program, "a_position");
-        var texCoordLocation = gl.getAttribLocation(program, "a_texCoord");
+                gl.texture(image);
 
-        //把旋转半径0.7注入glsl
-        var radiusLocation = gl.getUniformLocation(program, "radius");
-        gl.uniform1f(radiusLocation, 0.7);
-        //把旋转角度30度注入glsl
-        var angleLocation = gl.getUniformLocation(program, "angle");
-        begin += step;
-        gl.uniform1f(angleLocation, begin);
+                angle += Math.PI / 180;
+                gl.uniform("angle", angle);
+                //顶点坐标
+                var width = image.width, height = image.height;
+                var x1 = 0;
+                var x2 = x1 + width;
+                var y1 = 0;
+                var y2 = y1 + height;
+                gl.buffer("a_position", [
+                   x1, y1,
+                   x2, y1,
+                   x1, y2,
+                   x2, y2]);
 
-        // provide texture coordinates for the rectangle.
-        var texCoordBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-            0.0, 0.0,
-            1.0, 0.0,
-            0.0, 1.0,
-            0.0, 1.0,
-            1.0, 0.0,
-            1.0, 1.0]), gl.STATIC_DRAW);
-        gl.enableVertexAttribArray(texCoordLocation);
-        gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
+                //用来填充三角形的纹理区域
+                gl.buffer("a_texCoord", [
+                        0.0, 0.0,
+                        1.0, 0.0,
+                        0.0, 1.0,
+                        1.0, 1.0]);
 
-        // Create a texture.
-        var texture = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, texture);
+                // Draw the rectangle.
+                gl.draw();
 
-        // Set the parameters so we can render any size image.
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+                requestAnimationFrame(function () {
+                    render(image)
+                })
+            }
+        })();
+       
+        
 
-        // Upload the image into the texture.
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
-        // lookup uniforms
-        var resolutionLocation = gl.getUniformLocation(program, "u_resolution");
 
-        // set the resolution
-        gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-
-        // Create a buffer for the position of the rectangle corners.
-        var buffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-        gl.enableVertexAttribArray(positionLocation);
-        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-
-        // Set a rectangle the same size as the image.
-        setRectangle(gl, 0, 0, image.width, image.height);
-
-        // Draw the rectangle.
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-        requestAnimationFrame(function () {
-            render(image)
-        })
-    }
-
-    function setRectangle(gl, x, y, width, height) {
-        var x1 = x;
-        var x2 = x + width;
-        var y1 = y;
-        var y2 = y + height;
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-           x1, y1,
-           x2, y1,
-           x1, y2,
-           x1, y2,
-           x2, y1,
-           x2, y2]), gl.STATIC_DRAW);
-    }
-
-</script>
+    </script>
 </body>
 </html>
-
-
+//纹理只给url的问题，egl内部cache和管理

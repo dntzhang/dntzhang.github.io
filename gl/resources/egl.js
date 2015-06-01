@@ -44,7 +44,7 @@
             return this.getAttribLocation(this._currentProgram,name);
         }
 
-        gl.uniform = function (name) {
+        gl.uniformIndex = function (name) {
             return this.getUniformLocation(this._currentProgram,name);
         }
 
@@ -59,7 +59,9 @@
             this.vertexAttribPointer(texCoordLocation, 2, this.FLOAT, false, 0, 0);
         
         }
-
+        gl.uniform = function (name ,value) {
+            this["uniform"+(arguments.length-1)+"f"](this.uniformIndex("angle"),value)
+        }
         gl.texture = function (image) {
             var texture = this.createTexture();
             this.bindTexture(this.TEXTURE_2D, texture);
