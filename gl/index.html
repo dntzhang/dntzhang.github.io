@@ -54,7 +54,7 @@
     <script src="resources/egl.js"></script>
     <script>
         ; (function () {
-            var angle = 0,img;
+            var angle = 0,step= Math.PI / 180;
             var gl = egl("#canvas", "2d-vertex-shader", "2d-fragment-shader");
 
             gl.loadImage("resources/test.jpg", function (image) {
@@ -66,8 +66,10 @@
                 gl.clear();
 
                 gl.texture(image);
-
-                angle += Math.PI / 180;
+                if (angle > Math.PI||angle<0) step *= -1;
+           
+                angle += step;
+                
                 gl.uniform("angle", angle);
                 //顶点坐标
                 var width = image.width, height = image.height;
