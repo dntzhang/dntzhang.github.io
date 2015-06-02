@@ -6,17 +6,17 @@
 
     <!-- vertex shader -->
     <script id="2d-vertex-shader" type="x-shader/x-vertex">
-        attribute vec2 a_position;
-        attribute vec2 a_texCoord;
+        attribute vec2 position;
+        attribute vec2 texCoord;
 
         varying vec2 v_texCoord;
         void main() {
 
-           gl_Position = pMatrix* vec4(a_position, 0, 1);
+           gl_Position = pMatrix* vec4(position, 0, 1);
 
            // pass the texCoord to the fragment shader
            // The GPU will interpolate this value between points.
-           v_texCoord = a_texCoord;
+           v_texCoord = texCoord;
         }
     </script>
     <!-- fragment shader -->
@@ -50,60 +50,55 @@
     </script>
 </head>
 <body>
+    <a href="https://github.com/kmdjs/pixeljs" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
     <canvas id="canvas" width="960" height="800"></canvas>
-    <script src="resources/egl.js"></script>
+    <script src="pixel.js"></script>
     <script>
         ; (function () {
-            var angle = 0,step= Math.PI / 180;
-            var gl = egl("#canvas", "2d-vertex-shader", "2d-fragment-shader");
-
-            gl.loadImage("resources/test.jpg", function (image) {
-                    render(image)
+            var angle = 0,step= Math.PI / 180,currentImg;
+            var px = pixel("#canvas", "2d-vertex-shader", "2d-fragment-shader");
+            pixel.loadImage([{ id: "test", src: "asset/test.jpg" }, { id: "logo", src: "asset/logo.png" }], function () {
+                currentImg = pixel.images["test"];
+                render();
             })
 
-            function render(image) {
-               
-                gl.clear();
+            function render() {               
+                px.clear();
+                px.texture(currentImg);
 
-                gl.texture(image);
-                if (angle > Math.PI||angle<0) step *= -1;
-           
-                angle += step;
-                
-                gl.uniform("angle", angle);
+                if (angle > Math.PI||angle<0) step *= -1;       
+                angle += step;              
+                px.uniform("angle", angle);
+
                 //顶点坐标
-                var width = image.width, height = image.height;
+                var width = currentImg.width, height = currentImg.height;
                 var x1 = 0;
                 var x2 = x1 + width;
                 var y1 = 0;
                 var y2 = y1 + height;
-                gl.buffer("a_position", [
+                px.position( [
                    x1, y1,
                    x2, y1,
                    x1, y2,
                    x2, y2]);
 
                 //用来填充三角形的纹理区域
-                gl.buffer("a_texCoord", [
+                px.texCoord( [
                         0.0, 0.0,
                         1.0, 0.0,
                         0.0, 1.0,
                         1.0, 1.0]);
 
                 // Draw the rectangle.
-                gl.draw();
+                px.draw();
 
-                requestAnimationFrame(function () {
-                    render(image)
-                })
+                requestAnimationFrame(render)
+                
             }
         })();
-       
-        
-
-
 
     </script>
 </body>
 </html>
-//纹理只给url的问题，egl内部cache和管理
