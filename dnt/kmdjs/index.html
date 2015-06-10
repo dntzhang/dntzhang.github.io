@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>KMD.js</title>
+        <meta charset="utf-8">
+        <meta name="description" content="KMD.js -Kill AMD and CMD .">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+       
+      <link rel="shortcut icon" href="../img/dang.ico" type="image/x-icon"/>
+ 
+        <link href="css/style.css" rel="stylesheet" />
+ 
+    </head>
+    <body>
+    
+
+<div id="hero">
+    <div class="inner">
+        <ul id="nav">
+            <li><a href="http://htmlcssjs.duapp.com/dnt" class="nav-link">DNT</a></li>
+            <li><a href="http://htmlcssjs.duapp.com/" class="nav-link">My Website</a></li>
+            <li><a href="http://weibo.com/iamleizhang" class="nav-link">Weibo</a></li>
+            <li><a href="https://github.com/kmdjs/kmdjs/issues/" class="nav-link">Blog</a></li>
+        </ul>
+        <!--<img id="logo" src="/images/logo.png">-->
+        <h1>KMD.js</h1>
+        <p class="sub">Kill AMD and CMD</p>
+          
+    
+        <p class="desc" style="margin:0 auto;">JS工程化<span style="color:#808080;font-weight:bold;font-size:25px;">终极</span>解决方案，Coming soon.....</p>
+        <p class="buttons"  style="margin:0 auto;">
+         
+            <a href="https://github.com/kmdjs/kmdjs"  class="button">Source on GitHub</a>
+        </p>
+     
+    </div>
+</div>
+
+          
+<div id="why">
+    <h2>You should try it out  if you :</h2>
+  <ul>
+      <li>追求完美</li>
+      <li>极简主义</li>      
+      <li>富有情怀</li>      
+      <li>代码洁癖</li>
+      <li>不甘平凡</li>
+      <li>追求卓越</li>
+      <li>理想主义</li>
+  </ul>
+
+</div>
+<div id="footer">
+    <a class="start" href="https://github.com/kmdjs/kmdjs/issues/3">Get Started</a>
+    <p>Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+    <p>Copyright (c) 2014 <a href="http://weibo.com/iamleizhang" target="_blank">当耐特</a></p>
+</div>
+        <script>
+            function getViewport() {
+                var d = document.documentElement, b = document.body, w = window, div = document.createElement("div");
+
+                div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
+                var lt = !(div.firstChild.nodeType === 3) ?
+                { left: b.scrollLeft || d.scrollLeft, top: b.scrollTop || d.scrollTop } :
+                { left: w.pageXOffset, top: w.pageYOffset };
+                var wh = w.innerWidth ?
+                { width: w.innerWidth, height: w.innerHeight } :
+                        (d && d.clientWidth && d.clientWidth != 0 ?
+                    { width: d.clientWidth, height: d.clientHeight } :
+                    { width: b.clientWidth, height: b.clientHeight });
+
+                return [lt.left, lt.top, wh.width, wh.height]
+            }
+            var vp = getViewport();
+            var txaP = document.getElementById("txaP");
+            var txa = document.getElementById("code");
+            if (vp[2] > 600) {
+                txaP.style.width = "600px";
+                txa.style.width = "600px";
+            } else {
+                txaP.style.width = vp[2] + "px";
+                txa.style.width = vp[2] + "px";
+            }
+            
+        </script>
+
+    </body>
+</html>

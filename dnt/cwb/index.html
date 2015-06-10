@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>超快长微博</title>
+    <meta id="viewport" name="viewport" content="width=955px" />
+      <link rel="shortcut icon" href="../img/dang.ico" type="image/x-icon" />
+      <style>body {
+            background: url(../img/topbg.png) repeat;
+            font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+        }</style>
+ <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+             .adjust {
+                 display:inline-block;
+            position: relative;
+            width: 80px;
+        }
+        .adjust-arrow {
+            position: absolute;
+            top: 3px;
+            right: 0px;
+        }
+        .adjust-arrow-up {
+            background: url(aUp.png) no-repeat;
+            width: 21px;
+            height: 12px;
+            margin-bottom: 3px;
+            cursor: pointer;
+        }
+        .adjust-input {
+            width: 80px;
+            height: 27px;
+            text-indent:6px;
+            font-size:17px;
+            font-weight:bold;
+        }
+        .adjust-arrow-down {
+            background: url(aDown.png) no-repeat;
+            width: 21px;
+            height: 12px;
+            cursor: pointer;
+        }
+        .wbinput{
+            width:180px;
+             height: 27px;
+            text-indent:6px;
+            font-size:17px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <div style="float: left;">
+        <textarea rows="25" cols="45">世界上最快的最漂亮文字转图工具，使用步骤：
+     0：打开谷歌浏览器(版本22+)
+     1：把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框把你想要转成长图片的文字放进文本框
+     2：点击下载
+        Over!
+    oh my god!  好棒！ 好赞！！
+     
+    更多精彩:htmlcssjs.duapp.com
+</textarea>
+       <div><input type="button" id="mybtn" value="轻轻点击瞬间下载" /><input type="button" id="resetBtn" value="清空内容重写" /></div>
+       <div id="weiboCTT"> 微博名:
+        <input type="text" id="weiboname" placeholder="此名加在末尾水印" class="wbinput " />
+           
+           </div>
+  <input type="button" id="youbtn" value="下载自定义水印版" /><br />
+        
+       
+        <input type="button" value="分享生成的图片到新浪微博" id="shareBtn" style="display: none;" disabled="disabled" />
+    </div>
+    <div style="float: left;">
+        <h4>使用步骤：</h4>
+        <p>0：打开谷歌浏览器(版本22+)</p>
+        <p>1：把你想要转成长图片的文字放进文本框</p>
+        <p>2：点击下载（谷歌会浏览器自动下载到本地）</p>
+        <p>3：PC用户如果尚未自动下载请手动另存右边图片到本地</p>
+        <p>4：手机用户长按保存到相册</p>
+        <p>5：捐赠支持:) 支付宝账号:mhtml5@qq.com<br />
+            或扫描二维码：</p>
+        <p>
+            <img src="alipay.png" />
+        </p>
+        <h3>Over!</h3>
+    </div>
+    <div style="clear:both;"></div>
+    <div style="display: none;">
+        <img src="bg.png" id="bgImg" /><img src="x.png" id="wtX" /><img id="wblogo" src="LOGO_64x64.png" />
+        <a id="downloadLink" download="changweibo.png">changweibo</a>
+        <canvas width="640" height="960"></canvas>
+        <canvas width="640" height="960" style="position: absolute; right: 0; top: 0;"></canvas>
+    </div>
+    <img id="show" style="position: absolute; right: 0; top: 0; width: 640px; max-width: 320px;z-index:1000;" />
+    <script src="../js/jquery.js"></script>
+    <script src="rl.js?v=8"></script>
+       <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    var duoshuoQuery = { short_name: "htmlcssjs" };
+    (function () {
+        $("#resetBtn").on("click", function () {
+            $("textarea").eq(0).val("").trigger("focus");           
+        })
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript'; ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+	</script>
+ <!-- 多说公共JS代码 end -->
+</body>
+</html>
