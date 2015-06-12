@@ -176,8 +176,17 @@
     </div>
     <script>
         ; (function () {
+           
+            function isInArr(arr,item) {
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    if (item === arr[i]) return true;
+                }
+                return false;
+            }
+            var arr = [42,44,40,39,35,38,46,33];
             var DEMOCOUNT = 56, contentHtml = "", content = document.getElementById("content");
             for (var i = DEMOCOUNT; i > 0; i--) {
+                if (isInArr(arr,i)) continue;
                 contentHtml += '<div class="box"><a href="demo' + i + '/index.html" class="thumbnail" target="_blank"><img src="img/demo' + i + 'pv.png" /></a></div>';
             }
             content.innerHTML = contentHtml;
