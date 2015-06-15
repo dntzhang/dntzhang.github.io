@@ -2,7 +2,7 @@
  * By 当耐特 http://weibo.com/iamleizhang
  * KMD.js http://kmdjs.github.io/
  * blog: http://www.cnblogs.com/iamzhanglei/
- * My website:http://htmlcssjs.duapp.com/
+ * My website:http://weibo.com/iamleizhang/
  * thanks to http://raphaeljs.com/
  * MIT Licensed.
  */

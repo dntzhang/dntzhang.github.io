@@ -81,10 +81,10 @@ jQuery(function ($) {
     {
         cttHTML +=
         '<div class="span3" style="margin-left: 15px;">' +
-               '<a href="http://htmlcssjs.duapp.com/demo'+i+'/index.html" class="thumbnail">' +
+               '<a href="http://weibo.com/iamleizhang/demo'+i+'/index.html" class="thumbnail">' +
                    '<img  alt="coming" style="width: 260px; height: 180px;" src="img/demo' + i + 'pv.'+(i===41?"gif":"png")+'">' +
                '</a>' +
-               '<p style="margin-left: 8px;"><a class="btn" href="http://htmlcssjs.duapp.com/demo' + i + '/index.html">View details &raquo;</a></p>' +
+               '<p style="margin-left: 8px;"><a class="btn" href="http://weibo.com/iamleizhang/demo' + i + '/index.html">View details &raquo;</a></p>' +
            '</div>';
     }
     $("#mainCTT").html(cttHTML);
