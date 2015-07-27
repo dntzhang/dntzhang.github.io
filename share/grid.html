@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <!-- vertex shader -->
+    <script id="2d-vertex-shader" type="x-shader/x-vertex">
+        attribute vec2 position;
+        attribute vec2 texCoord;
+
+        varying vec2 v_texCoord;
+        void main() {
+
+           gl_Position = pMatrix* vec4(position, 0, 1);
+
+           // pass the texCoord to the fragment shader
+           // The GPU will interpolate this value between points.
+           v_texCoord = texCoord;
+        }
+    </script>
+    <!-- fragment shader -->
+    <script id="2d-fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        // our texture
+        uniform sampler2D u_image;
+
+        // the texCoords passed in from the vertex shader.
+        varying vec2 v_texCoord;
+        //注入glsl
+        uniform float angle;
+        const float radius = 0.5;
+        void main() {
+            vec2 center = vec2(0.5, 0.5);
+            vec2 tex = v_texCoord;
+            float dist = distance(center, v_texCoord);
+            tex -= center;
+            if (dist < radius)
+            {
+                 float percent = (radius - dist) / radius;
+                 float theta = percent * percent * angle * 8.0;
+                 float s = sin(theta);
+                 float c = cos(theta);
+                 tex = vec2(dot(tex, vec2(c, -s)), dot(tex, vec2(s, c)));
+            }
+            tex += center;
+           gl_FragColor = texture2D(u_image, tex);
+        }
+    </script>
+</head>
+<body>
+    <a href="https://github.com/kmdjs/pixeljs" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyGameEngine/example/asset/img/github.png" alt="" />
+    </a>
+    <canvas id="canvas" width="960" height="800"></canvas>
+    <script src="pixel.js"></script>
+    <script>
+        ; (function () {
+            var angle = 0,step= Math.PI / 180,currentImg,  pList = [];;
+            var px = pixel("#canvas", "2d-vertex-shader", "2d-fragment-shader");
+            pixel.loadImage([{ id: "test", src: "asset/test.jpg" }, { id: "logo", src: "asset/logo.png" }], function () {
+                currentImg = pixel.images["test"];
+                var width = currentImg.width, height = currentImg.height,count=12;
+                for (var y = 0; y <= count; y++) {
+                    var row = [];
+                    for (var x = 0; x <= count; x++) {
+                        row.push({ x: x * width / count + random(-40, 40), y: y * height / count + random(-40, 40) })
+                    }
+                    pList.push(row)
+                }
+                render(count);
+            })
+
+
+            function random(min, max) {
+
+                return min + Math.floor(Math.random() * (max - min + 1));
+            }
+
+            function render(count) {               
+                px.clear();
+                px.texture(currentImg);
+
+                if (angle > Math.PI||angle<0) step *= -1;       
+               // angle += step;              
+                px.uniform("angle", angle);
+
+              
+                var width = currentImg.width, height = currentImg.height;
+                var vList = [], bufferIndex = [], texCoord = [], textureInterval = 1 / count;
+
+                for (var y = 0; y < count; y++) {
+                    for (var x = 0; x < count; x++) {
+                        vList.push(pList[y][x].x, pList[y][x].y);
+                        vList.push(pList[y][x+1].x, pList[y][x+1].y);
+                        vList.push(pList[y+1][x].x, pList[y+1][x].y);
+                        vList.push(pList[y+1][x+1].x, pList[y + 1][x+1].y);
+
+                        texCoord.push(x * textureInterval, y * textureInterval);
+                        texCoord.push((x + 1) * textureInterval, y * textureInterval);
+                        texCoord.push(x * textureInterval, (y + 1) * textureInterval);
+                        texCoord.push((x + 1) * textureInterval, (y + 1) * textureInterval);
+                    }
+                }
+
+                for (var i = 0, len = vList.length; i < len; i+=4) {
+                    bufferIndex.push(i, i + 1, i + 2, i + 2, i + 1, i + 3);
+                }
+            
+                px.position(vList);
+                px.texCoord(texCoord);
+                px.bufferIndex(bufferIndex);
+
+           
+                // Draw the rectangle.
+                px.draw();
+
+             //   requestAnimationFrame(render)
+                
+            }
+        })();
+
+    </script>
+</body>
+</html>
