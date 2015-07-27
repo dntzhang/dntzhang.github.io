@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script>
+        (function () {
+            var r = 10;
+            function b(a, b) {
+                return a + Math.floor(Math.random() * (b - a + 1))
+            }
+          
+            loadImage("plum.png", function (img) {
+
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                document.body.appendChild(canvas);
+                ctx.drawImage(img, 0, 0);
+                function c(a, b) {
+                    return 4 * (b * canvas.width + a)
+                }
+                canvas.addEventListener("mousemove", function (evt) {
+                    var h = getMousePos(canvas, evt);
+                    var data = ctx.getImageData(h.x, h.y, 1, 1).data;
+                    if (data[3] === 0 || data[0] + data[1] + data[2] + data[3] === 255 * 4) return;
+                    var  i = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    var j = i.data, k = 4 * canvas.width * canvas.height, l = 0;
+                    for (; k > l; l += 4) {
+                        if (0 != j[l + 3]) {
+                            var m = l / 4 % canvas.width,
+                            n = parseInt(l / 4 / canvas.width);
+                          
+                            if (Math.pow((m - h.x), 2) + Math.pow((n - h.y), 2) < 264) {
+                                m += Math.round(b(-1, 1)),
+                                n -= Math.round(b(-1, 1));
+                                var p = c(m, n);
+                                j[p] = j[l],
+                                j[p + 1] = j[l + 1],
+                                j[p + 2] = j[l + 2],
+                                j[p + 3] = j[l + 3] / 1.05
+                            }
+                        }
+                    }
+                    ctx.putImageData(i, 0, 0)
+
+                    //var p = getMousePos(canvas, evt);
+                    //var data = ctx.getImageData(p.x, p.y, 1, 1).data;
+                    //if (data[3] === 0 || data[0] + data[1] + data[2] + data[3] === 255 * 4) return;
+                    //var pixels = getAllPixel(p.x, p.y, 10), i = 0, len = pixels.length, tR = 0, tG = 0, tB = 0, tA = 0;
+                    //for (; i < len; i++) {
+                    //    var pixel = pixels[i];
+                    //    var pixelData= ctx.getImageData(pixel.x, pixel.y, 1, 1).data;
+                    //    tR += pixelData[0];
+                    //    tG += pixelData[1];
+                    //    tB += pixelData[2];
+                    //    tA += pixelData[3];
+                    //}
+                    //var aR = tR / len, aG = tG / len, aB = tB / len, aA = tA / len/2;
+                    //for (i=0; i < len; i++) {
+                    //    var pixel = pixels[i];
+                    //    var aa = ctx.getImageData(pixel.x, pixel.y, 1, 1);
+                    //    var pixelData = aa.data;
+                    //     pixelData[0]=aR;
+                    //     pixelData[1]=aG;
+                    //     pixelData[2]=aB;
+                    //     pixelData[3] = aA;
+
+                    //     ctx.putImageData(aa, pixel.x, pixel.y);
+                    //}
+                    
+                }, false);
+
+            })
+
+            function getAllPixel(x,y,r) {
+                var sqR = r * r, result = [];
+                for (var row = y - r; row <= y + r; row++) {
+                    for (var col = x - r; col <= x + r; col++) {
+                        if ((row - y) * (row - y) + (col - x) * (col - x) <= sqR) {
+                            result.push({ x: col, y: row });
+                        }
+                    }
+                }
+                return result;
+            }
+
+            function loadImage(src, callback) {
+                var img = new Image();
+                img.onload = function () {
+                    callback(this);
+                    img.onload = null;
+                }
+                img.src = src;
+            }
+            function getMousePos(canvas, evt) {
+                var rect = canvas.getBoundingClientRect();
+                return {
+                    x: evt.clientX - rect.left,
+                    y: evt.clientY - rect.top
+                };
+            }
+         
+        })()
+    
+    </script>
+</body>
+</html>
