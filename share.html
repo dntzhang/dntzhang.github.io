@@ -209,20 +209,20 @@
 
     function toTop(el,top,time){
         var dTop=top- parseInt(window.getComputedStyle(scroll).top);
-        
+         var current=parseInt(window.getComputedStyle(scroll).top);
         var start=new Date();
         checkLoop=setInterval(function(){
             console.log('loop2')
           
             var dt=new Date()-start;
-              debuglogs.innerHTML+=dt+"开始较真";
+              debuglogs.innerHTML=dt+"开始较真";
             if(dt>=time){
                 clearInterval(checkLoop);
-                //debuglogs.innerHTML="较真完毕31";
+                debuglogs.innerHTML="较真完毕381";
                 el.style.top = top + 'px';
                 return;
             }
-         var current=parseInt(window.getComputedStyle(scroll).top);
+        
                var val=dTop*dt/time+current;
             el.style.top = val + 'px';
 
