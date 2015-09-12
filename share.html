@@ -20,6 +20,7 @@
     line-height:40px;
 }
 </style>
+<div id="debuglogs" style="position:absolute;bottom:0px;height: 60px;width: 320px;overflow: scroll;"></div>
 <div style="width:200px;height:300px;overflow: hidden;position: relative;">
     <ul style="position:absolute;top:0px;" id="scroll">
      <li>2015年9月</li>
@@ -132,6 +133,7 @@
 
 </div>
 <script>
+    var debuglogs=document.getElementById('debuglogs');
     var scroll = document.getElementById("scroll"), preY, logs = [], speed = 0, loop,step=40,checkLoop;
     scroll.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
@@ -209,10 +211,11 @@
         var step=16*(top- parseInt(window.getComputedStyle(scroll).top))/time;
         checkLoop=setInterval(function(){
             console.log('loop2')
+            debuglogs.innerHTML="开始较真";
             var current=parseInt(window.getComputedStyle(scroll).top);
             if(Math.abs(top-current)<=Math.abs(step)){
                 clearInterval(checkLoop);
-                alert("较真完毕")
+                debuglogs.innerHTML="较真完毕";
                 el.style.top = top + 'px';
                 return;
             }
