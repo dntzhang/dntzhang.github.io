@@ -70,7 +70,7 @@
 
 </div>
 <script>
-var scroll=document.getElementById("scroll"),preY,logs=[],speed=0;
+var scroll=document.getElementById("scroll"),preY,logs=[],speed= 0,loop;
     scroll.addEventListener("touchmove",function(evt){
        var dy=evt.touches[0].pageY-preY;
         preY=evt.touches[0].pageY;
@@ -83,6 +83,7 @@ var scroll=document.getElementById("scroll"),preY,logs=[],speed=0;
 evt.preventDefault();
     },false);
 scroll.addEventListener("touchstart",function(evt){
+
     logs.length=0;
     preY=evt.touches[0].pageY;
 speed=0;
@@ -90,30 +91,32 @@ speed=0;
 },false);
 //根据前两次touchmove坐标和时间，以及touchend的坐标和时间，来决定滚动方向和速度
 scroll.addEventListener("touchend",function(evt){
-///
-    console.log(JSON.stringify(logs))
     var now=new Date().getTime();
     var y=evt.changedTouches[0].pageY;
     if(logs.length>1) {
     if(now-logs[0].time>500){
         //不滚动
-        console.log(1)
+        
     }
 
         speed=1000*(logs[0].y-logs[1].y)/(logs[0].time-logs[1].time)/60;
-
+        initLoop();
    }
     evt.preventDefault();
 },false);
+function initLoop(){
+    loop= setInterval(function(){
 
-setInterval(function(){
-var positionY=(parseInt(window.getComputedStyle(scroll).top)+speed);
-    if(positionY<=0){
-        scroll.style.top= positionY+"px";
-    }
+        var positionY=(parseInt(window.getComputedStyle(scroll).top)+speed);
+        if(positionY<=0){
+            scroll.style.top= positionY+"px";
+        }
 
-   speed/=1.1;
-},16)
+        speed/=1.1;
+        if(Math.abs(speed)<0.1)clearInterval(loop);
+    },16)
+}
+
 
 
 
