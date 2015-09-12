@@ -7,122 +7,47 @@
     <title></title>
 </head>
 <body>
+<style>
+    html,body,ul,li{
+        margin:0;
+        padding:0;
+        border:0;
+    }
 
+#scroll li{
+    list-style:none;
+    height: 40px;
+}
+</style>
 <div style="width:200px;height:300px;overflow: hidden;position: relative;">
-    <div style="position:absolute;top:0px;" id="scroll">
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-
-        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
-    </div>
+    <ul style="position:absolute;top:0px;" id="scroll">
+     <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+        <li>sfsfdssfjslfjdsl</li>
+    </ul>
 
 
 </div>
 <script>
-    var scroll = document.getElementById("scroll"), preY, logs = [], speed = 0, loop;
+    var scroll = document.getElementById("scroll"), preY, logs = [], speed = 0, loop,step=40;
     scroll.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
         preY = evt.touches[0].pageY;
@@ -134,7 +59,7 @@
         logs.unshift({time: new Date().getTime(), y: preY});
         evt.preventDefault();
     }, false);
-    
+
     scroll.addEventListener("touchstart", function (evt) {
         clearInterval(loop);
         logs.length = 0;
@@ -142,23 +67,25 @@
         speed = 0;
         evt.preventDefault();
     }, false);
-    
+
     //根据前两次touchmove坐标和时间，以及touchend的坐标和时间，来决定滚动方向和速度
     scroll.addEventListener("touchend", function (evt) {
         var now = new Date().getTime();
         var y = evt.changedTouches[0].pageY;
         if (logs.length > 1) {
-            if (now - logs[0].time > 500) {
-                //不滚动
+            if (now - logs[0].time < 500) {
 
+                speed = 1000 * (logs[0].y - logs[1].y) / (logs[0].time - logs[1].time) / 60;
+                initLoop();
+            }else{
+                checkEnd();
             }
 
-            speed = 1000 * (logs[0].y - logs[1].y) / (logs[0].time - logs[1].time) / 60;
-            initLoop();
+
         }
         evt.preventDefault();
     }, false);
-    
+
     function initLoop() {
         loop = setInterval(function () {
 
@@ -168,11 +95,27 @@
             }
 
             speed /= 1.1;
-            if (Math.abs(speed) < 0.1)clearInterval(loop);
+            if (Math.abs(speed) < 0.1){
+                clearInterval(loop);
+                checkEnd();
+            }
         }, 16)
     }
 
+    function checkEnd(){
+        var positionY = parseInt(window.getComputedStyle(scroll).top);
+        var rpt=Math.floor(positionY/step) ;
+        var dy= positionY%step;
+        if(dy>step/2){
 
+
+                scroll.style.top = (rpt+1)*step + "px";
+
+
+            }else{
+            scroll.style.top = rpt*step + "px";
+        }
+    }
 </script>
 </body>
 </html>
