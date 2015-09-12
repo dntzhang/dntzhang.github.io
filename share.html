@@ -47,7 +47,7 @@
 <script>
     var debuglogs=document.getElementById('debuglogs');
     var scroll = document.getElementById("scroll"),warpper= document.getElementById("warpper"), preY, logs = [], speed = 0, loop,step=30,checkLoop;
-    var maxTop=parseInt(window.getComputedStyle(scroll).height)-parseInt(window.getComputedStyle(warpper).height);
+    var maxTop=parseInt(window.getComputedStyle(scroll).height)-parseInt(window.getComputedStyle(warpper).height)+step*2;
     var minTop=step*2;
     scroll.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
