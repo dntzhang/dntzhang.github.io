@@ -7,23 +7,64 @@
 </head>
 <body>
 
-<div style="width:100px;height:200px;overflow: hidden;position: relative;">
+<div style="width:200px;height:300px;overflow: hidden;position: relative;">
     <div style="position:absolute;top:0px;" id="scroll">
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+
+        <p>sdfsfs</p>
+        <p>sdfsfs</p>
+        <p>sdfsfs</p>
+        <p>sdfsfs</p>
+
         <p>sdfsfs</p>
         <p>sdfsfs</p>
         <p>sdfsfs</p>
         <p>sdfsfs</p>
         <p>sdfsfs</p>
         <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
-        <p>sdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>  <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>  <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+        <p>sdfsfssdfsfssdfsfssdfsfssdfsfssdfsfs</p>
+
+
     </div>
 
 
@@ -33,7 +74,11 @@ var scroll=document.getElementById("scroll"),preY,logs=[],speed=0;
     scroll.addEventListener("touchmove",function(evt){
        var dy=evt.touches[0].pageY-preY;
         preY=evt.touches[0].pageY;
-        scroll.style.top= (parseInt(window.getComputedStyle(scroll).top)+dy)+"px";
+        var positionY=(parseInt(window.getComputedStyle(scroll).top)+dy);
+        if(positionY<=0){
+            scroll.style.top= positionY+"px";
+        }
+
         logs.unshift({time:new Date().getTime(),y:preY});
 
     },false);
@@ -61,8 +106,11 @@ scroll.addEventListener("touchend",function(evt){
 },false);
 
 setInterval(function(){
+var positionY=(parseInt(window.getComputedStyle(scroll).top)+speed);
+    if(positionY<=0){
+        scroll.style.top= +"px";
+    }
 
-    scroll.style.top= (parseInt(window.getComputedStyle(scroll).top)+speed)+"px";
    speed/=1.1;
 },16)
 
