@@ -126,7 +126,7 @@
         checkLoop=setInterval(function(){
             console.log('loop2')
             var current=parseInt(window.getComputedStyle(scroll).top);
-            if(Math.abs(top)-Math.abs(current) <=step){
+            if(Math.abs(top-current)<=Math.abs(step)){
                 clearInterval(checkLoop);
                 el.style.top = top + 'px';
                 return;
