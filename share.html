@@ -161,13 +161,13 @@
         var now = new Date().getTime();
         var y = evt.changedTouches[0].pageY;
         if (logs.length > 1) {
-            if (now - logs[0].time < 500) {
+           // if (now - logs[0].time < 500) {
 
                 speed = 1000 * (logs[0].y - logs[1].y) / (logs[0].time - logs[1].time) / 60;
                 initLoop();
-            }else{
-                checkEnd();
-            }
+          //  }else{
+             //   checkEnd();
+          //  }
 
 
         }
@@ -217,7 +217,7 @@
             var current=parseInt(window.getComputedStyle(scroll).top);
             if(dt>=time){
                 clearInterval(checkLoop);
-                debuglogs.innerHTML="较真完毕2";
+                debuglogs.innerHTML="较真完毕3";
                 el.style.top = top + 'px';
                 return;
             }
