@@ -18,6 +18,7 @@
     list-style:none;
     height: 30px;
     line-height:30px;
+    font-size:18px;
     
 }
 
@@ -45,7 +46,7 @@
 </div>
 <script>
     var debuglogs=document.getElementById('debuglogs');
-    var scroll = document.getElementById("scroll"),warpper= document.getElementById("warpper"), preY, logs = [], speed = 0, loop,step=40,checkLoop;
+    var scroll = document.getElementById("scroll"),warpper= document.getElementById("warpper"), preY, logs = [], speed = 0, loop,step=30,checkLoop;
     var maxTop=parseInt(window.getComputedStyle(scroll).height)-parseInt(window.getComputedStyle(warpper).height);
     scroll.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
