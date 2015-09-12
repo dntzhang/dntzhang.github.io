@@ -213,12 +213,12 @@
         var start=new Date();
         checkLoop=setInterval(function(){
             console.log('loop2')
-            debuglogs.innerHTML="开始较真";
+          
             var dt=new Date()-start;
-            
+              debuglogs.innerHTML+=dt+"开始较真";
             if(dt>=time){
                 clearInterval(checkLoop);
-                debuglogs.innerHTML="较真完毕31";
+                //debuglogs.innerHTML="较真完毕31";
                 el.style.top = top + 'px';
                 return;
             }
