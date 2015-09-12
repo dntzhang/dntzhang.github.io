@@ -105,16 +105,17 @@
 
     function checkEnd(){
         var positionY = parseInt(window.getComputedStyle(scroll).top);
-        var rpt=Math.floor(positionY/step) ;
+        var rpt=Math.floor(Math.abs(positionY/step)) ;
         var dy= positionY%step;
-        if(dy>step/2){
+        console.log(rpt,dy)
+        if(Math.abs(dy) >step/2){
 
 
-                scroll.style.top = (rpt+1)*step + "px";
+                scroll.style.top = -1*(rpt+1)*step + "px";
 
 
             }else{
-            scroll.style.top = rpt*step + "px";
+            scroll.style.top = -1*rpt*step + "px";
         }
     }
 </script>
