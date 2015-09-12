@@ -80,12 +80,13 @@ var scroll=document.getElementById("scroll"),preY,logs=[],speed=0;
         }
 
         logs.unshift({time:new Date().getTime(),y:preY});
-
+evt.preventDefault();
     },false);
 scroll.addEventListener("touchstart",function(evt){
     logs.length=0;
     preY=evt.touches[0].pageY;
 speed=0;
+    evt.preventDefault();
 },false);
 //根据前两次touchmove坐标和时间，以及touchend的坐标和时间，来决定滚动方向和速度
 scroll.addEventListener("touchend",function(evt){
@@ -102,7 +103,7 @@ scroll.addEventListener("touchend",function(evt){
         speed=1000*(logs[0].y-logs[1].y)/(logs[0].time-logs[1].time)/60;
 
    }
-
+    evt.preventDefault();
 },false);
 
 setInterval(function(){
