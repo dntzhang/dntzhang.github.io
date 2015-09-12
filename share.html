@@ -139,7 +139,6 @@
         var dy = evt.touches[0].pageY - preY;
         preY = evt.touches[0].pageY;
         var positionY = (parseInt(window.getComputedStyle(scroll).top) + dy);
-        debuglogs.innerHTML+=dy;
         if (positionY <= 0) {
             scroll.style.top = positionY + "px";
         }
@@ -213,12 +212,12 @@
         var start=new Date();
         checkLoop=setInterval(function(){
             console.log('loop2')
-            //debuglogs.innerHTML="开始较真";
+            debuglogs.innerHTML="开始较真";
             var dt=new Date()-start;
             var current=parseInt(window.getComputedStyle(scroll).top);
             if(dt>=time){
                 clearInterval(checkLoop);
-                //debuglogs.innerHTML="较真完毕2";
+                debuglogs.innerHTML="较真完毕2";
                 el.style.top = top + 'px';
                 return;
             }
