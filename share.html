@@ -48,7 +48,7 @@
 
 </div>
 <script>
-    var scroll = document.getElementById("scroll"), preY, logs = [], speed = 0, loop,step=40;
+    var scroll = document.getElementById("scroll"), preY, logs = [], speed = 0, loop,step=40,checkLoop;
     scroll.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
         preY = evt.touches[0].pageY;
@@ -63,6 +63,7 @@
 
     scroll.addEventListener("touchstart", function (evt) {
         clearInterval(loop);
+        clearInterval(checkLoop);
         logs.length = 0;
         preY = evt.touches[0].pageY;
         speed = 0;
@@ -89,7 +90,7 @@
 
     function initLoop() {
         loop = setInterval(function () {
-
+            console.log('loop1')
             var positionY = (parseInt(window.getComputedStyle(scroll).top) + speed);
             if (positionY <= 0) {
                 scroll.style.top = positionY + "px";
@@ -110,13 +111,32 @@
         console.log(rpt,dy)
         if(Math.abs(dy) >step/2){
 
-
-                scroll.style.top = -1*(rpt+1)*step + "px";
+            toTop(scroll,-1*(rpt+1)*step,400);
+               // scroll.style.top = -1*(rpt+1)*step + "px";
 
 
             }else{
-            scroll.style.top = -1*rpt*step + "px";
+            toTop(scroll,-1*rpt*step,400);
+            //scroll.style.top = -1*rpt*step + "px";
         }
+    }
+
+    function toTop(el,top,time){
+        var step=16*(top- parseInt(window.getComputedStyle(scroll).top))/time;
+        checkLoop=setInterval(function(){
+            console.log('loop2')
+            var current=parseInt(window.getComputedStyle(scroll).top);
+            if(top-current<=step){
+                clearInterval(checkLoop);
+                el.style.top = top + 'px';
+                return;
+            }
+            var val=current+step;
+            el.style.top = val + 'px';
+
+        },16);
+
+
     }
 </script>
 </body>
