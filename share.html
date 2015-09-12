@@ -95,7 +95,7 @@
             if (positionY <= minTop&&Math.abs(positionY)<maxTop) {
                 scroll.style.top = positionY + "px";
             }
-
+            
             speed /= 1.1;
             if (Math.abs(speed) < 0.1){
                 clearInterval(loop);
@@ -107,16 +107,17 @@
     function checkEnd(){
         var positionY = parseInt(window.getComputedStyle(scroll).top);
         var rpt=Math.floor(Math.abs(positionY/step)) ;
+        
         var dy= positionY%step;
         console.log(rpt,dy)
         if(Math.abs(dy) >step/2){
-
-            toTop(scroll,-1*(rpt+1)*step,400);
+            
+            toTop(scroll,(positionY<0?-1:1)*(rpt+1)*step,400);
                // scroll.style.top = -1*(rpt+1)*step + "px";
 
 
             }else{
-            toTop(scroll,-1*rpt*step,400);
+            toTop(scroll,(positionY<0?-1:1)*rpt*step,400);
             //scroll.style.top = -1*rpt*step + "px";
         }
     }
