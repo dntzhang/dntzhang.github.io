@@ -83,7 +83,7 @@ var scroll=document.getElementById("scroll"),preY,logs=[],speed= 0,loop;
 evt.preventDefault();
     },false);
 scroll.addEventListener("touchstart",function(evt){
-
+    clearInterval(loop);
     logs.length=0;
     preY=evt.touches[0].pageY;
 speed=0;
@@ -96,7 +96,7 @@ scroll.addEventListener("touchend",function(evt){
     if(logs.length>1) {
     if(now-logs[0].time>500){
         //不滚动
-        
+
     }
 
         speed=1000*(logs[0].y-logs[1].y)/(logs[0].time-logs[1].time)/60;
