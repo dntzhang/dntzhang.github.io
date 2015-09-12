@@ -208,20 +208,22 @@
     }
 
     function toTop(el,top,time){
-        var step=16*(top- parseInt(window.getComputedStyle(scroll).top))/time;
+        var dTop=top- parseInt(window.getComputedStyle(scroll).top);
+        
         var start=new Date();
         checkLoop=setInterval(function(){
             console.log('loop2')
             debuglogs.innerHTML="开始较真";
             var dt=new Date()-start;
-            var current=parseInt(window.getComputedStyle(scroll).top);
+            
             if(dt>=time){
                 clearInterval(checkLoop);
                 debuglogs.innerHTML="较真完毕3";
                 el.style.top = top + 'px';
                 return;
             }
-            var val=current+step;
+         var current=parseInt(window.getComputedStyle(scroll).top);
+               var val=dTop*dt/time+current;
             el.style.top = val + 'px';
 
         },16);
