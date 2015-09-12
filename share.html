@@ -209,11 +209,13 @@
 
     function toTop(el,top,time){
         var step=16*(top- parseInt(window.getComputedStyle(scroll).top))/time;
+        var start=new Date();
         checkLoop=setInterval(function(){
             console.log('loop2')
             debuglogs.innerHTML="开始较真";
+            var dt=new Date()-start;
             var current=parseInt(window.getComputedStyle(scroll).top);
-            if(Math.abs(top-current)<=Math.abs(step)){
+            if(dt>=time){
                 clearInterval(checkLoop);
                 debuglogs.innerHTML="较真完毕";
                 el.style.top = top + 'px';
