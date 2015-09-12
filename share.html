@@ -108,7 +108,7 @@ scroll.addEventListener("touchend",function(evt){
 setInterval(function(){
 var positionY=(parseInt(window.getComputedStyle(scroll).top)+speed);
     if(positionY<=0){
-        scroll.style.top= +"px";
+        scroll.style.top= positionY+"px";
     }
 
    speed/=1.1;
