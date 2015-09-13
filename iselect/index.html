@@ -110,7 +110,7 @@
             ],
             selectedIndex: 3,
             complete: function (item,index) {
-                console.log(item.value + "_" +item.text + "_" + index);
+                document.body.insertAdjacentHTML ("beforeEnd","你选了第" + index + "项<br/>value:" + item.value + "<br/>text:" + item.text);
             }
         })
 
