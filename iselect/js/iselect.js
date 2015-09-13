@@ -1,28 +1,37 @@
 ﻿var ISelect = function (option) {
-    this.options = option.options;
-    this.parent = document.querySelector(option.renderTo);
-    var lis = "";
-    for (var i = 0, len = this.options.length; i < len; i++) {
-        lis += '<li>' + this.options[i].text + '</li>'
+    var options = option.options,lis = "";
+    for (var i = 0, len = options.length; i < len; i++) {
+        lis += '<li>' + options[i].text + '</li>'
     }
-    this.html = ' <div class="iselect">\
+    document.querySelector(option.renderTo).insertAdjacentHTML("beforeEnd",
+                        ' <div class="iselect">\
                                 <div class="iselect-toolbar"><a class="iselect-toolbar-ok">完成</a></div>\
                                 <div class="iselect-options">\
                                     <ul class="iselect-scroll">'+ lis + ' </ul>\
                                     <div class="iselect-mask1"></div>\
                                     <div class="iselect-mask2"></div>\
                                 </div>\
-                            </div>';
+                            </div>');
 
-    this.parent.insertAdjacentHTML("beforeEnd", this.html);
+    var scroll = document.querySelector(".iselect-scroll"),
+        warpper = document.querySelector(".iselect-options"),
+        preY,
+        logs = [],
+        speed = 0,
+        loop,
+        step = 30,
+        checkLoop,
+        minTop = step * 2,
+        fx = 1.1,
+        maxTop = parseInt(window.getComputedStyle(scroll).height) - parseInt(window.getComputedStyle(warpper).height) + minTop,
+        minEaseTop = step * 4,
+        maxEaseTop = maxTop + 2 * step;
 
-    var scroll = document.querySelector(".iselect-scroll"), warpper = document.querySelector(".iselect-options"), preY, logs = [], speed = 0, loop, step = 30, checkLoop, minTop = step * 2,fx=1.1, maxTop = parseInt(window.getComputedStyle(scroll).height) - parseInt(window.getComputedStyle(warpper).height) + minTop;
-    var minEaseTop = step *4, maxEaseTop = maxTop + 2 * step;
     warpper.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
         preY = evt.touches[0].pageY;
         var positionY = (parseInt(window.getComputedStyle(scroll).top) + dy);
-        if (positionY < minEaseTop && Math.abs( positionY)< maxEaseTop) {
+        if (positionY < minEaseTop && Math.abs(positionY) < maxEaseTop) {
             scroll.style.top = positionY + "px";
         }
         logs.unshift({ time: new Date().getTime(), y: preY });
@@ -62,7 +71,7 @@
         }
         evt.preventDefault();
     }, false);
-    
+
     function initLoop() {
         loop = setInterval(function () {
             var positionY = (parseInt(window.getComputedStyle(scroll).top) + speed);
@@ -74,7 +83,7 @@
             } else {
                 fx = 1.1;
             }
-            speed /=fx;
+            speed /= fx;
             if (Math.abs(speed) < 0.1) {
                 clearInterval(loop);
                 checkEnd();
@@ -114,12 +123,13 @@
                 el.style.top = top + 'px';
                 return;
             }
-            var val = dTop *iosEase( dt / time) + current;
+            var val = dTop * iosEase(dt / time) + current;
             el.style.top = val + 'px';
         }, 16);
 
 
     }
+
     //http://kmdjs.github.io/dnt/demo43/index.html
     function iosEase(x) {
         return Math.sqrt(1 - Math.pow(x - 1, 2));
