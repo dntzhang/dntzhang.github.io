@@ -54,6 +54,7 @@
         if (logs.length > 1) {
             // if (now - logs[0].time < 500) {
             speed = 1000 * (logs[0].y - logs[1].y) / (logs[0].time - logs[1].time) / 60;
+            if (Math.abs(speed) > 10) speed = (speed < 0 ? -1 : 1) * 10;
             initLoop();
             //  }else{
             //   checkEnd();
