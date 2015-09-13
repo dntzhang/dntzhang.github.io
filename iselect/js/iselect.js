@@ -17,11 +17,12 @@
     this.parent.insertAdjacentHTML("beforeEnd", this.html);
 
     var scroll = document.querySelector(".iselect-scroll"), warpper = document.querySelector(".iselect-options"), preY, logs = [], speed = 0, loop, step = 30, checkLoop, minTop = step * 2, maxTop = parseInt(window.getComputedStyle(scroll).height) - parseInt(window.getComputedStyle(warpper).height) + minTop;
+    var minEaseTop = step *4, maxEaseTop = maxTop + 2 * step;
     warpper.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
         preY = evt.touches[0].pageY;
         var positionY = (parseInt(window.getComputedStyle(scroll).top) + dy);
-        if (positionY <= minTop && Math.abs(positionY) < maxTop) {
+        if (positionY < minEaseTop && Math.abs( positionY)< maxEaseTop) {
             scroll.style.top = positionY + "px";
         }
         logs.unshift({ time: new Date().getTime(), y: preY });
@@ -55,7 +56,7 @@
     function initLoop() {
         loop = setInterval(function () {
             var positionY = (parseInt(window.getComputedStyle(scroll).top) + speed);
-            if (positionY <= minTop && Math.abs(positionY) < maxTop) {
+            if (positionY <= minEaseTop && Math.abs(positionY) < maxEaseTop) {
                 scroll.style.top = positionY + "px";
             }
             speed /= 1.1;
@@ -68,13 +69,21 @@
 
     function checkEnd() {
         var positionY = parseInt(window.getComputedStyle(scroll).top);
+        if (positionY > minTop) {
+            toTop(scroll, (positionY < 0 ? -1 : 1) * minTop, 100);
+            return;
+        }
+        if (Math.abs(positionY) > maxTop) {
+            toTop(scroll, (positionY < 0 ? -1 : 1) * maxTop, 100);
+            return;
+        }
         var rpt = Math.floor(Math.abs(positionY / step));
         var dy = positionY % step;
         if (Math.abs(dy) > step / 2) {
-            toTop(scroll, (positionY < 0 ? -1 : 1) * (rpt + 1) * step, 200);
+            toTop(scroll, (positionY < 0 ? -1 : 1) * (rpt + 1) * step, 100);
             // scroll.style.top = -1*(rpt+1)*step + "px";
         } else {
-            toTop(scroll, (positionY < 0 ? -1 : 1) * rpt * step, 200);
+            toTop(scroll, (positionY < 0 ? -1 : 1) * rpt * step, 100);
             //scroll.style.top = -1*rpt*step + "px";
         }
     }
@@ -90,11 +99,14 @@
                 el.style.top = top + 'px';
                 return;
             }
-            var val = dTop * dt / time + current;
+            var val = dTop *iosEase( dt / time) + current;
             el.style.top = val + 'px';
         }, 16);
 
 
     }
+    //http://kmdjs.github.io/dnt/demo43/index.html
+    function iosEase(x) {
+        return Math.sqrt(1 - Math.pow(x - 1, 2));
+    }
 }
-
