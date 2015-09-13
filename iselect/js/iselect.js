@@ -30,7 +30,7 @@
     warpper.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
         preY = evt.touches[0].pageY;
-        var positionY = (parseInt(window.getComputedStyle(scroll).top) + dy);
+        var positionY = (parseFloat(window.getComputedStyle(scroll).top) + dy);
         if (positionY < minEaseTop && Math.abs(positionY) < maxEaseTop) {
             scroll.style.top = positionY + "px";
         }
