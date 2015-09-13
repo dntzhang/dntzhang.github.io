@@ -69,6 +69,16 @@
             if (positionY <= minEaseTop && Math.abs(positionY) < maxEaseTop) {
                 scroll.style.top = positionY + "px";
             }
+            if (positionY > minTop) {
+                toTop(scroll, (positionY < 0 ? -1 : 1) * minTop, 400);
+                clearInterval(loop);
+                return;
+            }
+            if (Math.abs(positionY) > maxTop) {
+                toTop(scroll, (positionY < 0 ? -1 : 1) * maxTop, 400);
+                clearInterval(loop);
+                return;
+            }
             speed /= 1.1;
             if (Math.abs(speed) < 0.1) {
                 clearInterval(loop);
