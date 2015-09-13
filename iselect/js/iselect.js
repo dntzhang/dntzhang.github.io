@@ -40,6 +40,15 @@
 
     //根据前两次touchmove坐标和时间，以及touchend的坐标和时间，来决定滚动方向和速度
     warpper.addEventListener("touchend", function (evt) {
+        var positionY = parseInt(window.getComputedStyle(scroll).top);
+        if (positionY > minTop) {
+            toTop(scroll, (positionY < 0 ? -1 : 1) * minTop, 400);
+            return;
+        }
+        if (Math.abs(positionY) > maxTop) {
+            toTop(scroll, (positionY < 0 ? -1 : 1) * maxTop, 400);
+            return;
+        }
         var now = new Date().getTime();
         var y = evt.changedTouches[0].pageY;
         if (logs.length > 1) {
@@ -69,21 +78,13 @@
 
     function checkEnd() {
         var positionY = parseInt(window.getComputedStyle(scroll).top);
-        if (positionY > minTop) {
-            toTop(scroll, (positionY < 0 ? -1 : 1) * minTop, 100);
-            return;
-        }
-        if (Math.abs(positionY) > maxTop) {
-            toTop(scroll, (positionY < 0 ? -1 : 1) * maxTop, 100);
-            return;
-        }
         var rpt = Math.floor(Math.abs(positionY / step));
         var dy = positionY % step;
         if (Math.abs(dy) > step / 2) {
-            toTop(scroll, (positionY < 0 ? -1 : 1) * (rpt + 1) * step, 100);
+            toTop(scroll, (positionY < 0 ? -1 : 1) * (rpt + 1) * step, 400);
             // scroll.style.top = -1*(rpt+1)*step + "px";
         } else {
-            toTop(scroll, (positionY < 0 ? -1 : 1) * rpt * step, 100);
+            toTop(scroll, (positionY < 0 ? -1 : 1) * rpt * step, 400);
             //scroll.style.top = -1*rpt*step + "px";
         }
     }
