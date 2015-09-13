@@ -78,6 +78,14 @@
 
     function checkEnd() {
         var positionY = parseInt(window.getComputedStyle(scroll).top);
+        if (positionY > minTop) {
+            toTop(scroll, (positionY < 0 ? -1 : 1) * minTop, 400);
+            return;
+        }
+        if (Math.abs(positionY) > maxTop) {
+            toTop(scroll, (positionY < 0 ? -1 : 1) * maxTop, 400);
+            return;
+        }
         var rpt = Math.floor(Math.abs(positionY / step));
         var dy = positionY % step;
         if (Math.abs(dy) > step / 2) {
