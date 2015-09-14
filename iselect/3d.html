@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        html, body, ul, li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .iselect-scroll {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+          
+            
+        }
+
+            .iselect-scroll li {
+                list-style: none;
+                height: 30px;
+                line-height: 30px;
+                -moz-backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                font-size: 25px;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+    </style>
+</head>
+<body>
+    <ul class="iselect-scroll" style="  -moz-transform: rotateX(0deg);
+            -ms-transform: rotateX(0deg);
+            -o-transform: rotateX(0deg);
+            -webkit-transform: rotateX(0deg);
+            transform: rotateX(10deg);">
+        <li style="transform: rotateX(0deg) translateZ(50px);">11111111</li>
+        <li style="transform: rotateX(22.5deg) translateZ(50px);">2222222</li>
+        <li style="transform: rotateX(45deg) translateZ(50px);">3333333</li>
+        <li style="transform: rotateX(67.5deg) translateZ(50px);">44444444</li>
+        <li style="transform: rotateX(90deg) translateZ(50px);">55555555</li>
+        <li style="transform: rotateX(112.5deg) translateZ(50px);">6666666</li>
+        <li style="transform: rotateX(135deg) translateZ(50px);">6666666</li>
+        <li style="transform: rotateX(157.5deg) translateZ(50px);">6666666</li>
+        <li style="transform: rotateX(180deg) translateZ(50px);">6666666</li>
+        <!--        <li style=" transform: rotateX(40deg) translateZ(111px);">2015年6月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2015年5月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2015年4月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2015年3月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2015年2月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2015年1月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2014年12月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2014年11月</li>
+        <li style=" transform: rotateX(40deg) translateZ(111px);">2014年10月</li>-->
+    </ul>
+    <script src="js/iselect3d.js"></script>
+</body>
+</html>
