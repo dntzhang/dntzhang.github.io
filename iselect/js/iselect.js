@@ -43,7 +43,7 @@
     warpper.addEventListener("touchmove", function (evt) {
         var dy = evt.touches[0].pageY - preY;
         preY = evt.touches[0].pageY;
-        var positionY = (parseFloat(window.getComputedStyle(scroll).top) + dy);
+        var positionY = (parseFloat(scroll.style.top) + dy);
         if (positionY < minEaseTop && Math.abs(positionY) < maxEaseTop) {
             css(scroll, 'top',positionY);
         }
@@ -62,7 +62,7 @@
 
     //根据前两次touchmove坐标和时间，以及touchend的坐标和时间，来决定滚动方向和速度
     warpper.addEventListener("touchend", function (evt) {
-        var positionY = parseInt(window.getComputedStyle(scroll).top);
+        var positionY = parseInt(scroll.style.top);
         if (positionY > minTop) {
             to(scroll, 'top', (positionY < 0 ? -1 : 1) * minTop, 400);
             return;
@@ -87,7 +87,7 @@
 
     function initLoop() {
         loop = setInterval(function () {
-            var positionY = (parseInt(window.getComputedStyle(scroll).top) + speed);
+            var positionY = (parseInt(scroll.style.top) + speed);
             if (positionY <= minEaseTop && Math.abs(positionY) < maxEaseTop) {
                 css(scroll,'top', positionY);
             }
@@ -106,7 +106,7 @@
     }
 
     function correction() {
-        var positionY = parseInt(window.getComputedStyle(scroll).top);
+        var positionY = parseInt(scroll.style.top);
         if (positionY > minTop) {
             to(scroll,'top', (positionY < 0 ? -1 : 1) * minTop, 400);
             return;
@@ -126,9 +126,9 @@
         }
     }
 
-    function to(el, name,value, time,callback) {
-        var dv = value - parseInt(window.getComputedStyle(el)[name]);
+    function to(el, name, value, time, callback) {
         var current = parseInt(window.getComputedStyle(el)[name]);
+        var dv = value - current;
         var start = new Date();
         checkLoop = setInterval(function () {
             var dt = new Date() - start;
