@@ -3,7 +3,8 @@
         lis = "",
         parent = document.body,
         i = 0,
-        len = options.length;
+        len = options.length,
+        preSelectedIndex = option.selectedIndex;
     for (; i < len; i++) {
         lis += '<li>' + options[i].text + '</li>'
     }
@@ -37,7 +38,11 @@
     okBtn.addEventListener("click", function () {
         this.hide();
         var index = getSelectedIndex();
-        option.complete.call(this, option.options[index], index);
+        if (index !== preSelectedIndex) {
+            option.change && option.change.call(this, option.options[index], index);
+            preSelectedIndex = index;
+        }
+        option.complete&&option.complete.call(this, option.options[index], index);
     }.bind(this), false);
 
     warpper.addEventListener("touchmove", function (evt) {
@@ -163,12 +168,16 @@
     }
 
     this.show = function () {
+        clearInterval(loop);
+        clearInterval(checkLoop);
         container.style.visibility = "visible";
         container.style.display = "block";
         to(container, 'bottom', 0, 400);
     }
 
     this.hide = function () {
+        clearInterval(loop);
+        clearInterval(checkLoop);
         to(container, 'bottom', -190, 400, function () {
             container.style.display = "none";
         });

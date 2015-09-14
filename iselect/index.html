@@ -18,7 +18,8 @@
             bottom: -190px;
             overflow: hidden;
             position: absolute;
-            visibility:hidden;
+            visibility:hidden;            
+            background-color: white;
         }
                 .iselect-options {
             width: 100%;
@@ -90,6 +91,7 @@
     </style>
 </head>
 <body>
+  <button onclick="show()">选择日期</button>
     <script src="js/iselect.js"></script>
      <script>
         var iselect=new ISelect({
@@ -109,12 +111,15 @@
                 { value: "2014-10", text: "2014年10月" }
             ],
             selectedIndex: 3,
-            complete: function (item,index) {
-                document.body.insertAdjacentHTML ("beforeEnd","选了第" + index + "项<br/>value:" + item.value + "<br/>text:" + item.text);
+            change: function (item, index) {
+                document.body.insertAdjacentHTML("beforeEnd", "<br/>选了第" + index + "项<br/>value:" + item.value + "<br/>text:" + item.text);
             }
         })
-
         iselect.show();
+        function show() {
+            iselect.show();
+        }
+        
     </script>
 </body>
 </html>
