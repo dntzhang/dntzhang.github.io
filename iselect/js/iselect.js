@@ -161,7 +161,7 @@
 
     function getSelectedIndex() {
         //60  30  0   -30   -60...   -300
-       var rpt= (step*2- parseInt(window.getComputedStyle(scroll).top))/30;
+       var rpt= (step*2- parseInt(window.getComputedStyle(scroll).top))/step;
        if (rpt < 0) return 0;
        if (rpt > option.options.length) return option.options.length - 1;
        return Math.round(rpt);
