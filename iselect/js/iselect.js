@@ -64,9 +64,9 @@
         speed = 0;
         evt.preventDefault();
     }, false);
-
-    warpper.addEventListener("touchcancel", function (evt) {
-        alert("warppertouchcancel")
+    alert(1);
+    document.addEventListener("touchcancel", function (evt) {
+        alert("documenttouchcancel")
     }, false);
     //document.addEventListener("touchcancel", function (evt) {
     //    alert("documenttouchcancel")
