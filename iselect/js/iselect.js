@@ -68,12 +68,12 @@
     warpper.addEventListener("touchcancel", function (evt) {
         alert("warppertouchcancel")
     }, false);
-    document.addEventListener("touchcancel", function (evt) {
-        alert("documenttouchcancel")
-    }, false);
-    document.addEventListener("touchend", function (evt) {
-        alert("documenttouchend")
-    }, false);
+    //document.addEventListener("touchcancel", function (evt) {
+    //    alert("documenttouchcancel")
+    //}, false);
+    //document.addEventListener("touchend", function (evt) {
+    //    alert("documenttouchend")
+    //}, false);
     
     //根据前两次touchmove坐标和时间，以及touchend的坐标和时间，来决定滚动方向和速度
     warpper.addEventListener("touchend", function (evt) {
