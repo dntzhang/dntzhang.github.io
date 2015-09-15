@@ -65,6 +65,10 @@
         evt.preventDefault();
     }, false);
 
+    warpper.addEventListener("touchcancel", function (evt) {
+        alert("touchcancel")
+    }, false);
+    
     //根据前两次touchmove坐标和时间，以及touchend的坐标和时间，来决定滚动方向和速度
     warpper.addEventListener("touchend", function (evt) {
         var positionY = parseInt(scroll.style.top);
