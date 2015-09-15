@@ -65,7 +65,7 @@
         evt.preventDefault();
     }, false);
 
-    warpper.addEventListener("touchcancel", function (evt) {
+    document.addEventListener("touchend", function (evt) {
         alert("touchcancel")
     }, false);
     
