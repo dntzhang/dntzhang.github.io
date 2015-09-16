@@ -9,16 +9,18 @@
         lis += '<li>' + options[i].text + '</li>'
     }
     parent.insertAdjacentHTML("beforeEnd",
-                        ' <div class="iselect">\
+                        '<div class="iselect-wrap" style="height:'+window.innerHeight+'px"> <div class="iselect">\
                                 <div class="iselect-toolbar"><a class="iselect-toolbar-ok">完成</a></div>\
                                 <div class="iselect-options">\
                                     <ul class="iselect-scroll">'+ lis + ' </ul>\
                                     <div class="iselect-mask1"></div>\
                                     <div class="iselect-mask2"></div>\
                                 </div>\
-                            </div>');
+                            </div></div>');
     
-    var container = parent.querySelectorAll(".iselect")[0],
+    var wraps = parent.querySelectorAll(".iselect-wrap"),
+        wrap = wraps[wraps.length-1],
+        container = wrap.querySelector(".iselect"),
         scroll = container.querySelector(".iselect-scroll"),
         warpper = container.querySelector(".iselect-options"),
         okBtn = container.querySelector(".iselect-toolbar-ok"),
@@ -30,7 +32,7 @@
         checkLoop,
         minTop = step * 2,
         fx = 1.1,
-        maxTop = parseInt(window.getComputedStyle(scroll).height) - parseInt(window.getComputedStyle(warpper).height) + minTop,
+        maxTop = step * len - step*5 + minTop,
         minEaseTop = step * 4,
         maxEaseTop = maxTop + 2 * step;
     css(scroll, 'top',2 * step - option.selectedIndex * step);
@@ -170,6 +172,7 @@
     this.show = function () {
         clearInterval(loop);
         clearInterval(checkLoop);
+        wrap.style.display = "block";
         container.style.visibility = "visible";
         container.style.display = "block";
         to(container, 'bottom', 0, 400);
@@ -180,6 +183,7 @@
         clearInterval(checkLoop);
         to(container, 'bottom', -190, 400, function () {
             container.style.display = "none";
+            wrap.style.display = "none";
         });
     }
 }
