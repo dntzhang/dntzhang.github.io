@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mandelbrot</title>
+</head>
+<body>
+<canvas id="ourCanvas" width="600" height="400" style="border:1px solid #ccc;"></canvas>
+<script>
+
+    ;(function(){
+        var Complex = function(r, i) {
+            this.r = r;
+            this.i = i;
+        }
+
+        Complex.prototype= {
+            madIteration: function (r, i) {
+                return new Complex(this.r * this.r - this.i * this.i + r, 2 * this.r * this.i + i);
+            },
+            modulusSqu: function () {
+                return this.r * this.r + this.i * this.i;
+            }
+        }
+
+        var canvas = document.getElementById('ourCanvas'),
+                context = canvas.getContext('2d'),
+                w = canvas.width,
+                h = canvas.height;
+
+        function render(iterMax){
+            context.clearRect(0,0,w,h);
+            var    imageData = context.getImageData(0, 0, 600, 400),
+                    iter = 0,
+                    current,
+                    temp;
+            for (var x = 0; x < w; x++) {
+                for (var y = 0; y < h; y++) {
+                    current = new Complex(x / 100 - 3, y / 100 - 2);
+                    temp = current;
+                    iter = 0;
+                    while (temp.modulusSqu() <= 4 && iter < iterMax) {
+                        temp = temp.madIteration(current.r, current.i)
+                        iter = iter + 1;
+                    }
+                    iter === iterMax&&(imageData.data[ 4 * (canvas.width * y + x) + 3] = 255);
+                }
+            }
+            context.putImageData(imageData, 0, 0);
+        }
+
+        function main(){
+            var i= 2,step=1;
+            setInterval(function(){
+                (i===1|| i===40)&&(step*=-1);
+                render(i+=step);
+            },50)
+        }
+
+        main();
+
+    })()
+</script>
+</body>
+</html>
