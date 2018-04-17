@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>在线图片转透明背景</title>
@@ -84,7 +85,514 @@
     <canvas style="display: none"></canvas>
     <div style="text-align:center"> create by <a href="http://weibo.com/iamleizhang" target="_blank">当耐特</a></div>
     <script>
-        function DNDFileController(n, t) { var i = document.getElementById(n), r = document.getElementById(t); this.dragenter = function (n) { n.stopPropagation(), n.preventDefault(), i.classList.add("rounded") }, this.dragover = function (n) { n.stopPropagation(), n.preventDefault() }, this.dragleave = function (n) { n.stopPropagation(), n.preventDefault(), i.classList.remove("rounded") }, this.drop = function (n) { var e, f, t, o, u; for (n.stopPropagation(), n.preventDefault(), i.classList.remove("rounded"), e = n.dataTransfer.files, f = 0; t = e[f]; f++) (o = /image.*/, t.type.match(o)) && (u = new FileReader, u.onerror = function (n) { var t = "Error " + n.target.error.code; switch (n.target.error.code) { case FileError.NOT_READABLE_ERR: t += ": NOT_READABLE_ERR" } alert(t) }, u.onload = function (n) { return function (t) { var f, s, i, e, h, o, c, u; if (t.target.readyState == FileReader.DONE) { for (r.insertAdjacentHTML("afterBegin", '<img id="dropImg" src="' + t.target.result + '" alt="' + n.name + '" title="' + n.name + '" />'), f = document.getElementById("dropImg"), canvas.width = f.width, canvas.height = f.height, ctx.drawImage(f, 0, 0), s = ctx.getImageData(0, 0, canvas.width, canvas.height), i = s.data, e = 0, h = canvas.height; e < h; e++) for (o = 0, c = canvas.width; o < c; o++) u = (o + e * canvas.width) * 4, i[u] + i[u + 1] + i[u + 2] + i[u + 3] === 1020 && (i[u] = i[u + 1] = i[u + 2] = i[u + 3] = 0); ctx.putImageData(s, 0, 0), Canvas2Image.saveAsPNG(canvas) } } }(t), u.readAsDataURL(t)); return !1 }, i.addEventListener("dragenter", this.dragenter, !1), i.addEventListener("dragover", this.dragover, !1), i.addEventListener("dragleave", this.dragleave, !1), i.addEventListener("drop", this.drop, !1) } (function () { function i(t) { var i, r, e, u, f, o; for (e = t.length, r = 0, i = ""; r < e;) { if (u = t.charCodeAt(r++) & 255, r == e) { i += n.charAt(u >> 2), i += n.charAt((u & 3) << 4), i += "=="; break } if (f = t.charCodeAt(r++), r == e) { i += n.charAt(u >> 2), i += n.charAt((u & 3) << 4 | (f & 240) >> 4), i += n.charAt((f & 15) << 2), i += "="; break } o = t.charCodeAt(r++), i += n.charAt(u >> 2), i += n.charAt((u & 3) << 4 | (f & 240) >> 4), i += n.charAt((f & 15) << 2 | (o & 192) >> 6), i += n.charAt(o & 63) } return i } function r(n) { var s, o, r, u, i, e, f; for (e = n.length, i = 0, f = ""; i < e;) { do s = t[n.charCodeAt(i++) & 255]; while (i < e && s == -1); if (s == -1) break; do o = t[n.charCodeAt(i++) & 255]; while (i < e && o == -1); if (o == -1) break; f += String.fromCharCode(s << 2 | (o & 48) >> 4); do { if (r = n.charCodeAt(i++) & 255, r == 61) return f; r = t[r] } while (i < e && r == -1); if (r == -1) break; f += String.fromCharCode((o & 15) << 4 | (r & 60) >> 2); do { if (u = n.charCodeAt(i++) & 255, u == 61) return f; u = t[u] } while (i < e && u == -1); if (u == -1) break; f += String.fromCharCode((r & 3) << 6 | u) } return f } var n = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", t = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1]; window.btoa || (window.btoa = i), window.atob || (window.atob = r) })(); var Canvas2Image = function () { var f = !1, n = document.createElement("canvas"); if (n.getContext("2d") && (f = !0), !f) return { saveAsBMP: function () { }, saveAsPNG: function () { }, saveAsJPEG: function () { } }; var h = !!n.getContext("2d").getImageData, e = !!n.toDataURL, c = !!window.btoa, t = "image/octet-stream", l = function (n) { var t = parseInt(n.width), i = parseInt(n.height); return n.getContext("2d").getImageData(0, 0, t, i) }, o = function (n) { var i = "", r, t; if (typeof n == "string") i = n; else for (r = n, t = 0; t < r.length; t++) i += String.fromCharCode(r[t]); return btoa(i) }, a = function (n) { var i = [], s = n.width, c = n.height, r, t, u, f, e, y, l, h, a, v, w; for (i.push(66), i.push(77), r = s * c * 3 + 54, i.push(r % 256), r = Math.floor(r / 256), i.push(r % 256), r = Math.floor(r / 256), i.push(r % 256), r = Math.floor(r / 256), i.push(r % 256), i.push(0), i.push(0), i.push(0), i.push(0), i.push(54), i.push(0), i.push(0), i.push(0), t = [], t.push(40), t.push(0), t.push(0), t.push(0), u = s, t.push(u % 256), u = Math.floor(u / 256), t.push(u % 256), u = Math.floor(u / 256), t.push(u % 256), u = Math.floor(u / 256), t.push(u % 256), f = c, t.push(f % 256), f = Math.floor(f / 256), t.push(f % 256), f = Math.floor(f / 256), t.push(f % 256), f = Math.floor(f / 256), t.push(f % 256), t.push(1), t.push(0), t.push(24), t.push(0), t.push(0), t.push(0), t.push(0), t.push(0), e = s * c * 3, t.push(e % 256), e = Math.floor(e / 256), t.push(e % 256), e = Math.floor(e / 256), t.push(e % 256), e = Math.floor(e / 256), t.push(e % 256), y = 0; y < 16; y++) t.push(0); var d = (4 - s * 3 % 4) % 4, p = n.data, b = "", k = c; do { for (l = s * (k - 1) * 4, h = "", a = 0; a < s; a++) v = 4 * a, h += String.fromCharCode(p[l + v + 2]), h += String.fromCharCode(p[l + v + 1]), h += String.fromCharCode(p[l + v]); for (w = 0; w < d; w++) h += String.fromCharCode(0); b += h } while (--k); return o(i.concat(t)) + o(b) }, i = function (n) { document.location.href = n }, s = function (n, t) { return "data:" + t + ";base64," + n }, r = function (n) { var t = document.createElement("img"); return t.src = n, t }, u = function (n, t, i) { var r, u; return t && i ? (r = document.createElement("canvas"), r.width = t, r.height = i, r.style.width = t + "px", r.style.height = i + "px", u = r.getContext("2d"), u.drawImage(n, 0, 0, n.width, n.height, 0, 0, t, i), r) : n }; return { saveAsPNG: function (n, f, o, s) { if (!e) return !1; var c = u(n, o, s), h = c.toDataURL("image/png"); return f ? r(h) : (i(h.replace("image/png", t)), !0) }, saveAsJPEG: function (n, f, o, s) { if (!e) return !1; var l = u(n, o, s), h = "image/jpeg", c = l.toDataURL(h); return c.indexOf(h) != 5 ? !1 : f ? r(c) : (i(c.replace(h, t)), !0) }, saveAsBMP: function (n, f, e, o) { if (!(h && c)) return !1; var y = u(n, e, o), p = l(y), v = a(p); return f ? r(s(v, "image/bmp")) : (i(s(v, t)), !0) } } }(), canvas = document.querySelector("canvas"), ctx = canvas.getContext("2d"); window.addEventListener("load", function () { var n = new DNDFileController("dropzone", "dnd-thumbnails") }, !1)
-    </script>
+        'use strict';
+/**
+ * @param {?} id
+ * @param {?} thumbsId
+ * @return {undefined}
+ */
+function DNDFileController(id, thumbsId) {
+  /** @type {(Element|null)} */
+  var el_ = document.getElementById(id);
+  /** @type {(Element|null)} */
+  var thumbnails_ = document.getElementById(thumbsId);
+  /**
+   * @param {!Event} event
+   * @return {undefined}
+   */
+  this.dragenter = function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    el_.classList.add("rounded");
+  };
+  /**
+   * @param {!Event} event
+   * @return {undefined}
+   */
+  this.dragover = function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+  };
+  /**
+   * @param {!Event} event
+   * @return {undefined}
+   */
+  this.dragleave = function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    el_.classList.remove("rounded");
+  };
+  /**
+   * @param {!Event} event
+   * @return {?}
+   */
+  this.drop = function(event) {
+    var files;
+    var _k;
+    var file;
+    var rDataName;
+    var reader;
+    event.stopPropagation();
+    event.preventDefault();
+    el_.classList.remove("rounded");
+    files = event.dataTransfer.files;
+    /** @type {number} */
+    _k = 0;
+    for (; file = files[_k]; _k++) {
+      if (rDataName = /image.*/, file.type.match(rDataName)) {
+        /** @type {!FileReader} */
+        reader = new FileReader;
+        /**
+         * @param {!Event} event
+         * @return {undefined}
+         */
+        reader.onerror = function(event) {
+          /** @type {string} */
+          var alertMsg = "Error " + event.target.error.code;
+          switch(event.target.error.code) {
+            case FileError.NOT_READABLE_ERR:
+              /** @type {string} */
+              alertMsg = alertMsg + ": NOT_READABLE_ERR";
+          }
+          alert(alertMsg);
+        };
+        reader.onload = function(blob) {
+          return function(event) {
+            var img;
+            var data;
+            var s;
+            var ny;
+            var rh;
+            var nx;
+            var ctxWidth;
+            var i;
+            if (event.target.readyState == FileReader.DONE) {
+              thumbnails_.insertAdjacentHTML("afterBegin", '<img id="dropImg"  alt="' + blob.name + '" title="' + blob.name + '" />');
+              /** @type {(Element|null)} */
+              img = document.getElementById("dropImg");
+              img.onload = function(){
+
+                canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.drawImage(img, 0, 0);
+              console.log(img)
+              data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+              s = data.data;
+              /** @type {number} */
+              ny = 0;
+              rh = canvas.height;
+              for (; ny < rh; ny++) {
+                /** @type {number} */
+                nx = 0;
+                ctxWidth = canvas.width;
+                for (; nx < ctxWidth; nx++) {
+                  /** @type {number} */
+                  i = (nx + ny * canvas.width) * 4;
+                  if (s[i] + s[i + 1] + s[i + 2] + s[i + 3] === 1020) {
+                    /** @type {number} */
+                    s[i] = s[i + 1] = s[i + 2] = s[i + 3] = 0;
+                  }
+                }
+              }
+              ctx.putImageData(data, 0, 0);
+              Canvas2Image.saveAsPNG(canvas);
+              }
+              img.src = event.target.result
+              
+            }
+          };
+        }(file);
+        reader.readAsDataURL(file);
+      }
+    }
+    return false;
+  };
+  el_.addEventListener("dragenter", this.dragenter, false);
+  el_.addEventListener("dragover", this.dragover, false);
+  el_.addEventListener("dragleave", this.dragleave, false);
+  el_.addEventListener("drop", this.drop, false);
+}
+(function() {
+  /**
+   * @param {string} s
+   * @return {?}
+   */
+  function base64encode(s) {
+    var output;
+    var n;
+    var i;
+    var o;
+    var r;
+    var c3;
+    i = s.length;
+    /** @type {number} */
+    n = 0;
+    /** @type {string} */
+    output = "";
+    for (; n < i;) {
+      if (o = s.charCodeAt(n++) & 255, n == i) {
+        /** @type {string} */
+        output = output + base64EncodeChars.charAt(o >> 2);
+        /** @type {string} */
+        output = output + base64EncodeChars.charAt((o & 3) << 4);
+        /** @type {string} */
+        output = output + "==";
+        break;
+      }
+      if (r = s.charCodeAt(n++), n == i) {
+        /** @type {string} */
+        output = output + base64EncodeChars.charAt(o >> 2);
+        /** @type {string} */
+        output = output + base64EncodeChars.charAt((o & 3) << 4 | (r & 240) >> 4);
+        /** @type {string} */
+        output = output + base64EncodeChars.charAt((r & 15) << 2);
+        /** @type {string} */
+        output = output + "=";
+        break;
+      }
+      c3 = s.charCodeAt(n++);
+      /** @type {string} */
+      output = output + base64EncodeChars.charAt(o >> 2);
+      /** @type {string} */
+      output = output + base64EncodeChars.charAt((o & 3) << 4 | (r & 240) >> 4);
+      /** @type {string} */
+      output = output + base64EncodeChars.charAt((r & 15) << 2 | (c3 & 192) >> 6);
+      /** @type {string} */
+      output = output + base64EncodeChars.charAt(c3 & 63);
+    }
+    return output;
+  }
+  /**
+   * @param {string} input
+   * @return {?}
+   */
+  function base64decode(input) {
+    var c2;
+    var c1;
+    var c3;
+    var c4;
+    var i;
+    var length;
+    var out;
+    length = input.length;
+    /** @type {number} */
+    i = 0;
+    /** @type {string} */
+    out = "";
+    for (; i < length;) {
+      do {
+        c2 = decodeChars[input.charCodeAt(i++) & 255];
+      } while (i < length && c2 == -1);
+      if (c2 == -1) {
+        break;
+      }
+      do {
+        c1 = decodeChars[input.charCodeAt(i++) & 255];
+      } while (i < length && c1 == -1);
+      if (c1 == -1) {
+        break;
+      }
+      /** @type {string} */
+      out = out + String.fromCharCode(c2 << 2 | (c1 & 48) >> 4);
+      do {
+        if (c3 = input.charCodeAt(i++) & 255, c3 == 61) {
+          return out;
+        }
+        c3 = decodeChars[c3];
+      } while (i < length && c3 == -1);
+      if (c3 == -1) {
+        break;
+      }
+      /** @type {string} */
+      out = out + String.fromCharCode((c1 & 15) << 4 | (c3 & 60) >> 2);
+      do {
+        if (c4 = input.charCodeAt(i++) & 255, c4 == 61) {
+          return out;
+        }
+        c4 = decodeChars[c4];
+      } while (i < length && c4 == -1);
+      if (c4 == -1) {
+        break;
+      }
+      /** @type {string} */
+      out = out + String.fromCharCode((c3 & 3) << 6 | c4);
+    }
+    return out;
+  }
+  /** @type {string} */
+  var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  /** @type {!Array} */
+  var decodeChars = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 
+  -1, -1, -1, -1, -1];
+  if (!window.btoa) {
+    /** @type {function(string): ?} */
+    window.btoa = base64encode;
+  }
+  if (!window.atob) {
+    /** @type {function(string): ?} */
+    window.atob = base64decode;
+  }
+})();
+var Canvas2Image = function() {
+  /** @type {boolean} */
+  var f = false;
+  /** @type {!Element} */
+  var canvasDrawBG = document.createElement("canvas");
+  if (canvasDrawBG.getContext("2d") && (f = true), !f) {
+    return {
+      saveAsBMP : function() {
+      },
+      saveAsPNG : function() {
+      },
+      saveAsJPEG : function() {
+      }
+    };
+  }
+  /** @type {boolean} */
+  var h = !!canvasDrawBG.getContext("2d").getImageData;
+  /** @type {boolean} */
+  var e = !!canvasDrawBG.toDataURL;
+  /** @type {boolean} */
+  var rid = !!window.btoa;
+  /** @type {string} */
+  var strDownloadMime = "image/octet-stream";
+  /**
+   * @param {!HTMLCanvasElement} oCanvas
+   * @return {?}
+   */
+  var readCanvasData = function(oCanvas) {
+    /** @type {number} */
+    var rectW = parseInt(oCanvas.width);
+    /** @type {number} */
+    var bh = parseInt(oCanvas.height);
+    return oCanvas.getContext("2d").getImageData(0, 0, rectW, bh);
+  };
+  /**
+   * @param {string} data
+   * @return {?}
+   */
+  var encodeData = function(data) {
+    /** @type {string} */
+    var css = "";
+    var buffer;
+    var i;
+    if (typeof data == "string") {
+      /** @type {string} */
+      css = data;
+    } else {
+      /** @type {string} */
+      buffer = data;
+      /** @type {number} */
+      i = 0;
+      for (; i < buffer.length; i++) {
+        /** @type {string} */
+        css = css + String.fromCharCode(buffer[i]);
+      }
+    }
+    return btoa(css);
+  };
+  /**
+   * @param {!Object} oData
+   * @return {?}
+   */
+  var createBMP = function(oData) {
+    /** @type {!Array} */
+    var aHeader = [];
+    var iWidth = oData.width;
+    var iHeight = oData.height;
+    var iFileSize;
+    var aInfoHeader;
+    var iImageWidth;
+    var iImageHeight;
+    var iDataSize;
+    var i;
+    var iOffsetY;
+    var strPixelRow;
+    var x;
+    var iOffsetX;
+    var w;
+    aHeader.push(66);
+    aHeader.push(77);
+    /** @type {number} */
+    iFileSize = iWidth * iHeight * 3 + 54;
+    aHeader.push(iFileSize % 256);
+    /** @type {number} */
+    iFileSize = Math.floor(iFileSize / 256);
+    aHeader.push(iFileSize % 256);
+    /** @type {number} */
+    iFileSize = Math.floor(iFileSize / 256);
+    aHeader.push(iFileSize % 256);
+    /** @type {number} */
+    iFileSize = Math.floor(iFileSize / 256);
+    aHeader.push(iFileSize % 256);
+    aHeader.push(0);
+    aHeader.push(0);
+    aHeader.push(0);
+    aHeader.push(0);
+    aHeader.push(54);
+    aHeader.push(0);
+    aHeader.push(0);
+    aHeader.push(0);
+    /** @type {!Array} */
+    aInfoHeader = [];
+    aInfoHeader.push(40);
+    aInfoHeader.push(0);
+    aInfoHeader.push(0);
+    aInfoHeader.push(0);
+    iImageWidth = iWidth;
+    aInfoHeader.push(iImageWidth % 256);
+    /** @type {number} */
+    iImageWidth = Math.floor(iImageWidth / 256);
+    aInfoHeader.push(iImageWidth % 256);
+    /** @type {number} */
+    iImageWidth = Math.floor(iImageWidth / 256);
+    aInfoHeader.push(iImageWidth % 256);
+    /** @type {number} */
+    iImageWidth = Math.floor(iImageWidth / 256);
+    aInfoHeader.push(iImageWidth % 256);
+    iImageHeight = iHeight;
+    aInfoHeader.push(iImageHeight % 256);
+    /** @type {number} */
+    iImageHeight = Math.floor(iImageHeight / 256);
+    aInfoHeader.push(iImageHeight % 256);
+    /** @type {number} */
+    iImageHeight = Math.floor(iImageHeight / 256);
+    aInfoHeader.push(iImageHeight % 256);
+    /** @type {number} */
+    iImageHeight = Math.floor(iImageHeight / 256);
+    aInfoHeader.push(iImageHeight % 256);
+    aInfoHeader.push(1);
+    aInfoHeader.push(0);
+    aInfoHeader.push(24);
+    aInfoHeader.push(0);
+    aInfoHeader.push(0);
+    aInfoHeader.push(0);
+    aInfoHeader.push(0);
+    aInfoHeader.push(0);
+    /** @type {number} */
+    iDataSize = iWidth * iHeight * 3;
+    aInfoHeader.push(iDataSize % 256);
+    /** @type {number} */
+    iDataSize = Math.floor(iDataSize / 256);
+    aInfoHeader.push(iDataSize % 256);
+    /** @type {number} */
+    iDataSize = Math.floor(iDataSize / 256);
+    aInfoHeader.push(iDataSize % 256);
+    /** @type {number} */
+    iDataSize = Math.floor(iDataSize / 256);
+    aInfoHeader.push(iDataSize % 256);
+    /** @type {number} */
+    i = 0;
+    for (; i < 16; i++) {
+      aInfoHeader.push(0);
+    }
+    /** @type {number} */
+    var wordcount = (4 - iWidth * 3 % 4) % 4;
+    var aImgData = oData.data;
+    /** @type {string} */
+    var strPixelData = "";
+    var y = iHeight;
+    do {
+      /** @type {number} */
+      iOffsetY = iWidth * (y - 1) * 4;
+      /** @type {string} */
+      strPixelRow = "";
+      /** @type {number} */
+      x = 0;
+      for (; x < iWidth; x++) {
+        /** @type {number} */
+        iOffsetX = 4 * x;
+        /** @type {string} */
+        strPixelRow = strPixelRow + String.fromCharCode(aImgData[iOffsetY + iOffsetX + 2]);
+        /** @type {string} */
+        strPixelRow = strPixelRow + String.fromCharCode(aImgData[iOffsetY + iOffsetX + 1]);
+        /** @type {string} */
+        strPixelRow = strPixelRow + String.fromCharCode(aImgData[iOffsetY + iOffsetX]);
+      }
+      /** @type {number} */
+      w = 0;
+      for (; w < wordcount; w++) {
+        /** @type {string} */
+        strPixelRow = strPixelRow + String.fromCharCode(0);
+      }
+      /** @type {string} */
+      strPixelData = strPixelData + strPixelRow;
+    } while (--y);
+    return encodeData(aHeader.concat(aInfoHeader)) + encodeData(strPixelData);
+  };
+  /**
+   * @param {string} fileName
+   * @return {undefined}
+   */
+  var saveFile = function(fileName) {
+    /** @type {string} */
+    document.location.href = fileName;
+  };
+  /**
+   * @param {string} strData
+   * @param {string} strMime
+   * @return {?}
+   */
+  var makeDataURI = function(strData, strMime) {
+    return "data:" + strMime + ";base64," + strData;
+  };
+  /**
+   * @param {string} data
+   * @return {?}
+   */
+  var makeImageObject = function(data) {
+    /** @type {!Element} */
+    var imageData = document.createElement("img");
+    return imageData.src = data, imageData;
+  };
+  /**
+   * @param {!Object} canvas
+   * @param {string} w
+   * @param {string} h
+   * @return {?}
+   */
+  var scaleCanvas = function(canvas, w, h) {
+    var canvas2;
+    var ctx;
+    return w && h ? (canvas2 = document.createElement("canvas"), canvas2.width = w, canvas2.height = h, canvas2.style.width = w + "px", canvas2.style.height = h + "px", ctx = canvas2.getContext("2d"), ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, w, h), canvas2) : canvas;
+  };
+  return {
+    saveAsPNG : function(canvas, opacity, width, height) {
+      if (!e) {
+        return false;
+      }
+      var result = scaleCanvas(canvas, width, height);
+      var strData = result.toDataURL("image/png");
+      return opacity ? makeImageObject(strData) : (saveFile(strData.replace("image/png", strDownloadMime)), true);
+    },
+    saveAsJPEG : function(canvas, opacity, width, height) {
+      if (!e) {
+        return false;
+      }
+      var pixels = scaleCanvas(canvas, width, height);
+      /** @type {string} */
+      var strMime = "image/jpeg";
+      var strData = pixels.toDataURL(strMime);
+      return strData.indexOf(strMime) != 5 ? false : opacity ? makeImageObject(strData) : (saveFile(strData.replace(strMime, strDownloadMime)), true);
+    },
+    saveAsBMP : function(canvas, opacity, width, height) {
+      if (!(h && rid)) {
+        return false;
+      }
+      var oScaledCanvas = scaleCanvas(canvas, width, height);
+      var oData = readCanvasData(oScaledCanvas);
+      var strImgData = createBMP(oData);
+      return opacity ? makeImageObject(makeDataURI(strImgData, "image/bmp")) : (saveFile(makeDataURI(strImgData, strDownloadMime)), true);
+    }
+  };
+}();
+/** @type {(Element|null)} */
+var canvas = document.querySelector("canvas");
+var ctx = canvas.getContext("2d");
+window.addEventListener("load", function() {
+  var myDropzone = new DNDFileController("dropzone", "dnd-thumbnails");
+}, false);
+
+        </script>
 </body>
 </html>
